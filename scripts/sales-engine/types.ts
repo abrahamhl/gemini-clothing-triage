@@ -28,7 +28,8 @@ export interface BusinessLead {
   visitedAt?: string;
   visitNotes?: string;
 
-  consentStatus: 'DISCOVERED' | 'QUALIFIED' | 'AUDITED' | 'CONSENT_PENDING' | 'CONSENTED' | 'EXISTING_CUSTOMER' | 'DEMO_READY' | 'DRAFT_READY' | 'SENT' | 'REPLIED' | 'WON' | 'LOST' | 'DO_NOT_CONTACT';
+  consentStatus: 'DISCOVERED' | 'QUALIFIED' | 'AUDITED' | 'CONSENT_PENDING' | 'CONSENTED' | 'EXISTING_CUSTOMER' | 'DEMO_READY' | 'DRAFT_READY' | 'SENT' | 'REPLIED' | 'WON' | 'LOST' | 'DO_NOT_CONTACT' | 'SUPPRESSED';
+  suppressionReason?: 'BOUNCED' | 'DO_NOT_CONTACT' | 'OPT_OUT' | 'DUPLICATE_SENT' | 'REPLIED';
   consentSource?: 'IN_PERSON' | 'WEBSITE_OPT_IN' | 'EXISTING_CUSTOMER' | 'EXPLICIT_EMAIL_REQUEST';
   consentAt?: string;
   consentEvidence?: string;
