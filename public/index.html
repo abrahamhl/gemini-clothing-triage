@@ -385,47 +385,64 @@
     </p>
   </div>
 
-  <!-- AUDIT VIEW -->
-  <div id="viewAudit">
-    <!-- UPLOAD ZONE WITH CONSTANT AUDITOR -->
-    <div class="glass upload-zone" onclick="document.getElementById('fileInput').click()">
-      <div class="constant-auditor-badge">Auditor Constante Activo</div>
-      <input type="file" id="fileInput" multiple accept="image/*" capture="environment" class="hidden" onchange="handleUpload(event)">
-      <div class="upload-icon">📸</div>
-      <h2>Añadir prendas (Sube o haz fotos)</h2>
-      <p>La IA analizará automáticamente cada foto en tiempo real al subirla.</p>
-      <div style="margin-top:16px;">
-        <span class="btn" style="background: rgba(255,255,255,0.1); font-size: 13px;">Abrir Cámara / Galería</span>
+  <main class="container">
+    <!-- AUDIT VIEW -->
+    <div id="viewAudit">
+      <!-- UPLOAD ZONE WITH CONSTANT AUDITOR -->
+      <div class="glass upload-zone" onclick="document.getElementById('fileInput').click()">
+        <div class="constant-auditor-badge">Auditor Constante Activo</div>
+        <input type="file" id="fileInput" multiple accept="image/*" capture="environment" class="hidden" onchange="handleUpload(event)">
+        <div class="upload-icon">📸</div>
+        <div class="upload-text">Subir prendas al lote</div>
+        <div class="upload-sub">Arrastra imágenes o haz click (Soporta múltiples)</div>
       </div>
-    </div>
 
-    <div class="catalog-header">
-      <h3>Catálogo Procesado (<span id="countProcessed">0</span>/<span id="countTotal">0</span>)</h3>
-    </div>
-    <div class="grid" id="catalogGrid">
-      <!-- Items will appear here -->
-    </div>
-  </div>
-
-  <!-- PACKS VIEW -->
-  <div id="viewPacks" class="hidden">
-    <div class="glass config-section" style="margin-bottom: 24px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-        <div>
-          <h2 style="font-family: var(--font-display); font-size: 22px;">Generador de Lotes Rentables</h2>
-          <p style="color:var(--text-muted); font-size:14px; margin-top:4px;">Agrupa tus prendas automáticamente por nicho para vender más rápido con descuento.</p>
+      <!-- DASHBOARD -->
+      <div class="dashboard">
+        <div class="stat-card glass">
+          <div class="stat-value" id="countTotal">0</div>
+          <div class="stat-label">Prendas Procesadas</div>
         </div>
-        <button class="btn btn-primary" onclick="generatePacks()">🪄 Crear Packs Automáticos</button>
+        <div class="stat-card glass">
+          <div class="stat-value" id="countProcessed">0</div>
+          <div class="stat-label">Tasaciones Completadas</div>
+        </div>
+      </div>
+
+      <!-- CATALOG GRID -->
+      <div class="catalog-grid" id="catalogGrid"></div>
+    </div>
+
+    <!-- PACKS VIEW -->
+    <div id="viewPacks" class="hidden">
+      <div class="glass config-section" style="margin-bottom: 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div>
+            <h2 style="font-family: var(--font-display); font-size: 22px;">Generador de Lotes Rentables</h2>
+            <p style="color:var(--text-muted); font-size:14px; margin-top:4px;">Agrupa tus prendas automáticamente por nicho para vender más rápido con descuento.</p>
+          </div>
+          <button class="btn btn-primary" onclick="generatePacks()">🪄 Crear Packs Automáticos</button>
+        </div>
+      </div>
+      <div id="packsContainer">
+        <div style="text-align:center; padding: 40px; color: var(--text-muted);">Haz clic en "Crear Packs Automáticos" cuando tengas prendas analizadas aptas para la venta.</div>
       </div>
     </div>
-    
-    <div id="packsContainer" class="packs-container">
-      <div style="text-align:center; padding: 40px; color: var(--text-muted);">
-        Aún no hay packs generados. Audita algunas prendas y haz clic en "Crear Packs Automáticos".
+
+    <!-- LEADS VIEW -->
+    <div id="viewLeads" class="hidden">
+      <div class="glass config-section" style="margin-bottom: 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div>
+            <h2 style="font-family: var(--font-display); font-size: 22px;">Buscador de Distribuidores B2B</h2>
+            <p style="color:var(--text-muted); font-size:14px; margin-top:4px;">Encuentra tiendas vintage y mayoristas locales en Países Bajos para ofrecerles la demo.</p>
+          </div>
+          <button class="btn btn-primary" onclick="searchLeads()" style="background: linear-gradient(135deg, #6366f1, #a855f7); border-color: transparent;">🔍 Buscar Competidores (NL)</button>
+        </div>
       </div>
+      <div class="catalog-grid" id="leadsGrid"></div>
     </div>
-  </div>
-</div>
+  </main>
 
 <div id="toast-container"></div>
 
@@ -452,9 +469,12 @@
   function switchView(view) {
     document.getElementById('viewAudit').classList.toggle('hidden', view !== 'audit');
     document.getElementById('viewPacks').classList.toggle('hidden', view !== 'packs');
-    document.querySelectorAll('.tab').forEach((el, idx) => {
-      el.classList.toggle('active', (idx === 0 && view === 'audit') || (idx === 1 && view === 'packs'));
-    });
+    document.getElementById('viewLeads').classList.toggle('hidden', view !== 'leads');
+    
+    const tabs = document.querySelectorAll('.tab');
+    tabs[0].classList.toggle('active', view === 'audit');
+    tabs[1].classList.toggle('active', view === 'packs');
+    tabs[2].classList.toggle('active', view === 'leads');
   }
 
   // Handle file upload and trigger CONSTANT AUDITOR
@@ -694,6 +714,55 @@
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
     }, 4000);
+
+    // B2B LEADS SEARCH (OpenStreetMap Nominatim)
+    async function searchLeads() {
+      const grid = document.getElementById('leadsGrid');
+      grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text-muted); grid-column: 1/-1;">Buscando distribuidores en Holanda usando OpenStreetMap...</div>`;
+      
+      try {
+        const query = encodeURIComponent("vintage clothing store in Netherlands");
+        const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=15`;
+        
+        const response = await fetch(url, { headers: { "User-Agent": "TriageDemoApp/1.0" } });
+        const data = await response.json();
+        
+        if (!data || data.length === 0) {
+          grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--danger); grid-column: 1/-1;">No se encontraron resultados públicos.</div>`;
+          return;
+        }
+
+        grid.innerHTML = data.map(store => {
+          const name = store.name || "Tienda Vintage (Sin nombre)";
+          const city = store.address?.city || store.address?.town || store.address?.state || "Holanda";
+          const street = store.address?.road || "";
+          const type = store.type || "Tienda";
+          
+          return `
+            <div class="card" style="padding: 16px;">
+              <div class="card-body">
+                <div class="card-title" style="font-size: 16px;">${name}</div>
+                <div class="tags" style="margin-top: 10px;">
+                  <span class="tag market-vinted">B2B Lead</span>
+                  <span class="tag">${city}</span>
+                </div>
+                <div class="card-reason" style="margin-top: 12px; font-size: 13px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+                  <strong>Dirección:</strong> ${street} <br/>
+                  <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + city)}" target="_blank" style="color: #6366f1; text-decoration: none;">Ver en Google Maps</a>
+                    <a href="mailto:?subject=Propuesta Demo: Automatización de Tasación para ${name}" class="btn" style="padding: 4px 12px; font-size: 12px; background: rgba(255,255,255,0.1);">Enviar Correo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        showToast('🎯', 'Leads Encontrados', `Se han importado ${data.length} tiendas vintage holandesas.`);
+      } catch (e) {
+        grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--danger); grid-column: 1/-1;">Error al buscar leads: ${e.message}</div>`;
+      }
+    }
   }
 </script>
 
