@@ -2,6 +2,12 @@ import { BusinessLead } from './types';
 
 export function generatePersonalizedEmail(lead: BusinessLead, demoUrl: string, lang: 'NL' | 'EN' = 'NL') {
 
+  const observation = lead.evidence.length > 0 
+    ? lead.evidence.map(e => e.signal).join(', ') 
+    : 'unieke vintage items verkoopt';
+  
+  const evidenceUrl = lead.webshop || lead.website || 'uw winkel';
+
   const visitNote = lead.visitedInPerson && lead.visitNotes 
     ? (lang === 'NL' ? `Ik was onlangs in uw winkel en zag uw prachtige collectie. ` : `I visited your store recently and loved the collection. `)
     : "";
@@ -11,25 +17,25 @@ export function generatePersonalizedEmail(lead: BusinessLead, demoUrl: string, l
       subject: `Automatisering van productinvoer voor ${lead.businessName}`,
       bodyText: `Beste team van ${lead.businessName},
 
-${visitNote}Ik merkte via jullie website (${lead.website}) dat jullie veel unieke vintage items verkopen.
-Uit onze analyse blijkt dat het handmatig prijzen en beschrijven van deze items veel tijd kost. 
-TriajeOS kan dit proces automatiseren. U kunt het zelf testen met 10 van uw eigen kledingstukken:
+${visitNote}Tijdens mijn analyse van ${evidenceUrl} viel het me op dat u ${observation}.
+Het handmatig invoeren, prijzen en beschrijven van deze tweedehands/vintage items kost extreem veel tijd vergeleken met standaard retail.
+Omdat u gebruik maakt van ${lead.shopPlatform || 'een webshop'}, kan TriajeOS dit proces naadloos automatiseren.
 
+U kunt de AI zelf testen met 10 van uw eigen kledingstukken via uw gepersonaliseerde demo:
 ${demoUrl}
 
-Dit is een gepersonaliseerde demo. Als het bevalt, kunnen we TriajeOS integreren voor een eenmalige setup van €499 en €99/maand voor onderhoud en AI-updates.
+Als dit de gewenste tijdswinst oplevert, kunnen we TriajeOS integreren (eenmalige setup €499, onderhoud/AI-updates €99/maand).
 
 Met vriendelijke groet,
 
 Abraham Haddioui Lastras
 AUX Design · Arnhem
 https://auxdesign.nl
-Portfolio: https://creative-tech-portfolio.vercel.app/
-GitHub: https://github.com/abrahamhl
+https://creative-tech-portfolio.vercel.app/
 `
     };
   } else {
-      // English version omitted for brevity
-      return { subject: "", bodyText: "" };
+      // English version
+      return { subject: '', bodyText: '' };
   }
 }
