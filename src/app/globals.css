@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f6fb;
+  --surface: #ffffff;
+  --surface-2: #f0f0f7;
+  --border: #e6e6f0;
+  --text: #191930;
+  --muted: #6b6b85;
+  --primary: #7c5cff;
+  --primary-ink: #ffffff;
+  --primary-soft: #efeaff;
+  --accent: #19d3b5;
+  --accent-soft: #ddfbf5;
+  --pink: #ff7ac6;
+  --pink-soft: #ffe6f5;
+  --warn: #f5a524;
+  --danger: #f04438;
+  --radius: 14px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-pink: var(--pink);
+  --color-pink-soft: var(--pink-soft);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 100% -10%, var(--primary-soft), transparent 55%),
+    radial-gradient(1000px 500px at -10% 110%, var(--accent-soft), transparent 50%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(20, 20, 50, 0.04), 0 8px 24px rgba(20, 20, 50, 0.04);
+}
+
+.brand-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+}
+
+.scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}

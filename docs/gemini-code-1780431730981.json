@@ -1,0 +1,408 @@
+"
+  },
+  {
+    "marca": "Stone Island",
+    "modelo_serie": "Sweater Lila L",
+    "precio_base_EUR": 155.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular verificado) con 18 reviews",
+    "fuente": "Marktplaats [19]"
+  },
+  {
+    "marca": "Stone Island",
+    "modelo_serie": "Jacket Crinkle Reps L",
+    "precio_base_EUR": 300.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular verificado) con 45 reviews",
+    "fuente": "Marktplaats [20]"
+  },
+  {
+    "marca": "Zara",
+    "modelo_serie": "Pants Beige L",
+    "precio_base_EUR": 12.50,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Muy buena (Particular) con 12 reviews",
+    "fuente": "Marktplaats [1]"
+  },
+  {
+    "marca": "Zara",
+    "modelo_serie": "Colbert Blazer M",
+    "precio_base_EUR": 13.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Buena (Particular) con 4 reviews",
+    "fuente": "Marktplaats [1]"
+  },
+  {
+    "marca": "Zara",
+    "modelo_serie": "Summer Dress L",
+    "precio_base_EUR": 35.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Muy buena (Particular) con 29 reviews",
+    "fuente": "Marktplaats [1]"
+  },
+  {
+    "marca": "H&M / Divided",
+    "modelo_serie": "Johanna Ortiz Dress Yellow 42",
+    "precio_base_EUR": 30.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular) con 52 reviews",
+    "fuente": "Marktplaats [10]"
+  },
+  {
+    "marca": "Divided",
+    "modelo_serie": "Black Dress 36",
+    "precio_base_EUR": 6.50,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Buena (Particular) con 8 reviews",
+    "fuente": "Marktplaats [2]"
+  },
+  {
+    "marca": "Geisha",
+    "modelo_serie": "Maxi Dress Orange Red 44",
+    "precio_base_EUR": 35.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 19 reviews",
+    "fuente": "Marktplaats [17]"
+  },
+  {
+    "marca": "Geisha",
+    "modelo_serie": "Short Beige Green 40",
+    "precio_base_EUR": 15.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Buena (Particular) con 3 reviews",
+    "fuente": "Marktplaats [16]"
+  },
+  {
+    "marca": "Geisha",
+    "modelo_serie": "Blouse Black 44",
+    "precio_base_EUR": 20.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 14 reviews",
+    "fuente": "Marktplaats [16]"
+  },
+  {
+    "marca": "McGregor",
+    "modelo_serie": "Overhemd Cotton L",
+    "precio_base_EUR": 18.00,
+    "fecha_publicacion": "2026-03-09",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular) con 110 reviews",
+    "fuente": "Marktplaats [15]"
+  },
+  {
+    "marca": "McGregor",
+    "modelo_serie": "Heren Jack Blue XL",
+    "precio_base_EUR": 55.00,
+    "fecha_publicacion": "2026-05-20",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 34 reviews",
+    "fuente": "Marktplaats [15]"
+  },
+  {
+    "marca": "Gucci",
+    "modelo_serie": "Leather Platform Sneakers 36",
+    "precio_base_EUR": 250.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Tienda especializada) con 112 reviews",
+    "fuente": "Marktplaats [23]"
+  },
+  {
+    "marca": "Gucci",
+    "modelo_serie": "Leather Belt Black 90",
+    "precio_base_EUR": 200.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Buena (Particular) con 5 reviews",
+    "fuente": "Marktplaats [23]"
+  },
+  {
+    "marca": "Gucci",
+    "modelo_serie": "Vintage Leather Shoulder Bag",
+    "precio_base_EUR": 539.46,
+    "fecha_publicacion": "2026-05-28",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Profesional Certificado con 2300 reviews",
+    "fuente": "Miinto [25]"
+  },
+  {
+    "marca": "State of Art",
+    "modelo_serie": "Racing Overhemd Carrera M",
+    "precio_base_EUR": 20.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Excelente (Particular) con 82 reviews",
+    "fuente": "Marktplaats [12]"
+  },
+  {
+    "marca": "State of Art",
+    "modelo_serie": "Regular Fit Polo XXL",
+    "precio_base_EUR": 17.50,
+    "fecha_publicacion": "2026-05-18",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Boutique Ecogents) con 320 reviews",
+    "fuente": "Ecogents [14]"
+  },
+  {
+    "marca": "State of Art",
+    "modelo_serie": "Trui Wool XL",
+    "precio_base_EUR": 49.95,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Profesional Reacondicionado (95percent) con 1240 reviews",
+    "fuente": "Marktplaats [13]"
+  },
+  {
+    "marca": "Jack & Jones",
+    "modelo_serie": "Trui Knit XXL Blue",
+    "precio_base_EUR": 14.95,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Profesional Reacondicionado (95percent) con 1240 reviews",
+    "fuente": "Marktplaats [11]"
+  },
+  {
+    "marca": "Jack & Jones",
+    "modelo_serie": "CORE Heren Jas L Blue",
+    "precio_base_EUR": 20.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Buena (Particular) con 9 reviews",
+    "fuente": "Marktplaats [11]"
+  },
+  {
+    "marca": "Adidas",
+    "modelo_serie": "Sneakers White 42",
+    "precio_base_EUR": 44.95,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Profesional Reacondicionado (95percent) con 1240 reviews",
+    "fuente": "Marktplaats [41]"
+  },
+  {
+    "marca": "Puma",
+    "modelo_serie": "White Sneakers 38",
+    "precio_base_EUR": 25.00,
+    "fecha_publicacion": "2026-05-20",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular) con 41 reviews",
+    "fuente": "Marktplaats [42]"
+  },
+  {
+    "marca": "Daily Paper",
+    "modelo_serie": "Hoodie Green L",
+    "precio_base_EUR": 65.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 22 reviews",
+    "fuente": "Marktplaats [21]"
+  },
+  {
+    "marca": "Patta",
+    "modelo_serie": "T-shirt Light Yellow M",
+    "precio_base_EUR": 49.95,
+    "fecha_publicacion": "2026-04-25",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular) con 34 reviews",
+    "fuente": "Marktplaats [22]"
+  },
+  {
+    "marca": "Bowers & Wilkins",
+    "modelo_serie": "DM110i Speakers Set",
+    "precio_base_EUR": 75.00,
+    "fecha_publicacion": "2026-05-31",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 5 reviews",
+    "fuente": "Marktplaats [26]"
+  },
+  {
+    "marca": "Bowers & Wilkins",
+    "modelo_serie": "DM220 3-Way Speakers Set",
+    "precio_base_EUR": 175.00,
+    "fecha_publicacion": "2026-05-17",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 14 reviews",
+    "fuente": "2dehands [5]"
+  },
+  {
+    "marca": "Bowers & Wilkins",
+    "modelo_serie": "V201 Bookshelf Speakers Set",
+    "precio_base_EUR": 45.00,
+    "fecha_publicacion": "2026-05-18",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Buena (Particular) con 8 reviews",
+    "fuente": "Marktplaats [28]"
+  },
+  {
+    "marca": "Magnat",
+    "modelo_serie": "Ribbon 10 Vintage Speakers Set",
+    "precio_base_EUR": 220.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Audiófilo) con 42 reviews",
+    "fuente": "Marktplaats [29]"
+  },
+  {
+    "marca": "Magnat",
+    "modelo_serie": "Monitor Supreme 100 Bookshelf Set",
+    "precio_base_EUR": 49.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Tienda HelloTV) con 890 reviews",
+    "fuente": "Marktplaats [29]"
+  },
+  {
+    "marca": "Magnat",
+    "modelo_serie": "M2 Monitor Speakers Set",
+    "precio_base_EUR": 139.99,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Tienda Used Products) con 150 reviews",
+    "fuente": "Marktplaats [29]"
+  },
+  {
+    "marca": "JBL",
+    "modelo_serie": "SUB200/230 Active Subwoofer",
+    "precio_base_EUR": 65.00,
+    "fecha_publicacion": "2026-05-31",
+    "tipo_venta": "subasta",
+    "experiencia_vendedor": "Casa de subastas Catawiki con 45000 reviews",
+    "fuente": "Marktplaats [31]"
+  },
+  {
+    "marca": "Philips",
+    "modelo_serie": "MFB 22RH544 Reacondicionado Set",
+    "precio_base_EUR": 499.00,
+    "fecha_publicacion": "2026-05-29",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Especialista Reparación (MFBfreaks) con 850 reviews",
+    "fuente": "Marktplaats [8]"
+  },
+  {
+    "marca": "Philips",
+    "modelo_serie": "MFB 22AH567 Reacondicionado Set",
+    "precio_base_EUR": 549.00,
+    "fecha_publicacion": "2026-05-23",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Especialista Reparación (MFBfreaks) con 850 reviews",
+    "fuente": "Marktplaats [7]"
+  },
+  {
+    "marca": "Translator",
+    "modelo_serie": "Impact 20 Hans Baan Speakers Set",
+    "precio_base_EUR": 200.00,
+    "fecha_publicacion": "2026-05-23",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular especialista) con 34 reviews",
+    "fuente": "Marktplaats [6]"
+  },
+  {
+    "marca": "Translator",
+    "modelo_serie": "Agaat Hans Baan Speakers Set",
+    "precio_base_EUR": 115.00,
+    "fecha_publicacion": "2026-05-25",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 12 reviews",
+    "fuente": "Marktplaats [34]"
+  },
+  {
+    "marca": "Translator",
+    "modelo_serie": "Reference Hans Baan Heavy Columns Set",
+    "precio_base_EUR": 1195.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Profesional (Vintage Audio Brabant) con 410 reviews",
+    "fuente": "Marktplaats [34]"
+  },
+  {
+    "marca": "Dali",
+    "modelo_serie": "Zensor 5 Floorstanding Speakers Set",
+    "precio_base_EUR": 345.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Muy buena (Particular) con 19 reviews",
+    "fuente": "Marktplaats [35]"
+  },
+  {
+    "marca": "Dali",
+    "modelo_serie": "606 Vintage Floorstanding Set",
+    "precio_base_EUR": 150.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Buena (Particular) con 5 reviews",
+    "fuente": "Marktplaats [35]"
+  },
+  {
+    "marca": "KEF",
+    "modelo_serie": "LS50 High-End Coaxial Monitors Set",
+    "precio_base_EUR": 590.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular) con 42 reviews",
+    "fuente": "Marktplaats [36]"
+  },
+  {
+    "marca": "KEF",
+    "modelo_serie": "Q500 Floorstanding Speakers Set",
+    "precio_base_EUR": 475.00,
+    "fecha_publicacion": "2026-06-01",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Particular) con 15 reviews",
+    "fuente": "Marktplaats [9]"
+  },
+  {
+    "marca": "KEF",
+    "modelo_serie": "Reference 104aB BBC monitors Set",
+    "precio_base_EUR": 225.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Técnico de sonido) con 124 reviews",
+    "fuente": "Marktplaats [9]"
+  },
+  {
+    "marca": "Life",
+    "modelo_serie": "L 5454 Floorstanding Speakers Set",
+    "precio_base_EUR": 80.00,
+    "fecha_publicacion": "2026-05-15",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Buena (Particular) con 3 reviews",
+    "fuente": "Marktplaats [37]"
+  },
+  {
+    "marca": "Sony",
+    "modelo_serie": "SS-CRB5 Compact Bookshelf Speakers Set",
+    "precio_base_EUR": 69.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Tienda HelloTV) con 412 reviews",
+    "fuente": "Marktplaats [39]"
+  },
+  {
+    "marca": "Sony",
+    "modelo_serie": "SS-580 Vintage Wood Speakers Set",
+    "precio_base_EUR": 119.99,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "recogida",
+    "experiencia_vendedor": "Excelente (Tienda Used Products) con 180 reviews",
+    "fuente": "Marktplaats [39]"
+  },
+  {
+    "marca": "Sony",
+    "modelo_serie": "Bravia Theatre Rear 8 SA-RS8 Wireless Set",
+    "precio_base_EUR": 399.00,
+    "fecha_publicacion": "2026-06-02",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "Profesional (MediaMarkt) con 15000 reviews",
+    "fuente": "Marktplaats [40]"
+  }
+]

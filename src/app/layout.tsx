@@ -1,0 +1,29 @@
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "lean ai · Convierte fotos en decisiones rentables",
+  description:
+    "Sistema de decisiones comerciales asistido por IA para triaje y reventa de stock.",
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#7c5cff",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
+      <body className="min-h-full">{children}</body>
+    </html>
+  );
+}
