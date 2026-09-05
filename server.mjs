@@ -166,7 +166,7 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
         } else if (provider === "gemini-free") {
           // Gemini Free API
           if (!apiKey) throw new Error("API Key de Gemini no proporcionada");
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
           const resGem = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -189,7 +189,7 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
           if (!sa) throw new Error("Google Cloud Service Account no configurado en el servidor.");
           const token = await getAccessToken();
 
-          let vertexUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent`;
+          let vertexUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-3.6-flash:generateContent`;
           let apiRes = await fetch(vertexUrl, {
             method: 'POST',
             headers: {
@@ -210,7 +210,7 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
           let data = await apiRes.json();
           if (!apiRes.ok) {
             // Fallback GenerativeLanguage API with bearer
-            let genUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+            let genUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`;
             apiRes = await fetch(genUrl, {
               method: 'POST',
               headers: {
