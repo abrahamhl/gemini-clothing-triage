@@ -1,0 +1,9 @@
+{
+  "name": "gemini-clothing-triage",
+  "version": "1.0.0",
+  "description": "Gemini Clothing Triage AI",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}

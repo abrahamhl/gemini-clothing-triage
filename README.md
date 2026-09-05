@@ -13,8 +13,13 @@ Designed for second-hand stores, vintage shops, and Kringloopwinkels to drastica
 
 ## Architecture
 - **Frontend:** Vanilla HTML/CSS/JS (Lightweight, fast, mobile-friendly).
-- **Backend:** Node.js (Raw `http` module, zero unnecessary dependencies) that securely manages Google Cloud OAuth2 tokens and communicates with the Gemini API.
-- **Deployment-Ready:** Supports reading GCP credentials via `GOOGLE_APPLICATION_CREDENTIALS_JSON` environment variable for easy deployment on Vercel or Render.
+- **Backend:** Node.js (Vercel Serverless / Raw `http`) that securely manages Google Cloud OAuth2 tokens.
+- **Security Audit Passed:** Prompts, API logic, and GCP credentials are handled **100% server-side**. The frontend only receives the final structured JSON, making it impossible for malicious actors to scrape your prompts, steal your commercial secrets, or intercept your API keys via browser DevTools.
+
+## Instant Deployment
+You can deploy this to your own Vercel account instantly. Just click the button below and add your Google Cloud credentials to the `GOOGLE_APPLICATION_CREDENTIALS_JSON` environment variable during setup.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/abrahamhl/gemini-clothing-triage)
 
 ## Setup & Local Development
 
