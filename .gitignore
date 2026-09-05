@@ -47,3 +47,6 @@ next-env.d.ts
 # Local Sales CRM
 .crm-data/
 local-crm/
+
+export-leads.csv
+scripts/sales-engine/dist/

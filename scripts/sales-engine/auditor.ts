@@ -8,31 +8,35 @@ export interface AuditResult {
 }
 
 export class WebsiteAuditor {
-  // This auditor operates purely on observable facts from public business pages.
-  // In a real execution, it would fetch HTML and parse structured data (JSON-LD, microdata)
-  // or look for common platform signatures (Shopify object, WooCommerce classes).
-  
   public async audit(url: string): Promise<{ findings: AuditResult[], platform: string, webshopDetected: boolean }> {
-    // MOCK implementation. Actual implementation must NOT bypass auth or anti-bot.
-    // It should use standard fetch or a headless browser adhering to robots.txt.
+    if (!url) return { webshopDetected: false, platform: 'Unknown', findings: [] };
     
-    return {
-      webshopDetected: true,
-      platform: "WooCommerce", // Or Shopify, Lightspeed, etc.
-      findings: [
-        {
-          observation: "Detected manual-looking product titles with inconsistent metadata.",
-          evidenceUrl: url + "/shop",
-          confidence: 0.8,
-          opportunityForTriajeOS: "Automate title generation and ensure consistent attributes."
-        },
-        {
-          observation: "Lack of structured 'Condition' fields in product schema.",
-          evidenceUrl: url + "/shop",
-          confidence: 0.95,
-          opportunityForTriajeOS: "TriajeOS outputs strict condition and material schemas automatically."
-        }
-      ]
-    };
+    // Auto-prepend https if missing
+    if (!url.startsWith('http')) url = 'https://' + url;
+
+    try {
+      const res = await fetch(url, { headers: { 'User-Agent': 'TriajeOS-B2B-Discovery-Agent/1.0 (abraham@auxdesign.nl)' }, signal: AbortSignal.timeout(5000) });
+      if (!res.ok) return { webshopDetected: false, platform: 'Unknown', findings: [] };
+      
+      const html = await res.text();
+      let platform = 'Custom';
+      let webshopDetected = false;
+      
+      if (html.includes('Shopify.shop') || html.includes('cdn.shopify.com')) platform = 'Shopify';
+      else if (html.includes('wp-content/plugins/woocommerce')) platform = 'WooCommerce';
+      else if (html.includes('lightspeed')) platform = 'Lightspeed';
+
+      if (platform !== 'Custom' || html.includes('add-to-cart') || html.includes('shopping-cart')) {
+        webshopDetected = true;
+      }
+
+      return {
+        webshopDetected,
+        platform,
+        findings: [] // We don't invent findings if we can't observe them.
+      };
+    } catch (e) {
+      return { webshopDetected: false, platform: 'Unknown', findings: [] };
+    }
   }
 }

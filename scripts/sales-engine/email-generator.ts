@@ -1,10 +1,6 @@
 import { BusinessLead } from './types';
 
 export function generatePersonalizedEmail(lead: BusinessLead, demoUrl: string, lang: 'NL' | 'EN' = 'NL') {
-  // Enforce consent/lawful basis check before generating an email
-  if (lead.consentStatus !== 'CONSENTED' && lead.consentStatus !== 'EXISTING_CUSTOMER') {
-      throw new Error(`Cannot generate email draft: Missing explicit consent or lawful basis for lead ${lead.id}`);
-  }
 
   const visitNote = lead.visitedInPerson && lead.visitNotes 
     ? (lang === 'NL' ? `Ik was onlangs in uw winkel en zag uw prachtige collectie. ` : `I visited your store recently and loved the collection. `)

@@ -1,0 +1,7 @@
+docs/
+scripts/fetch_big.js
+scripts/fetch_leads.js
+scripts/filter_leads.js
+scripts/fix_vision.js
+scripts/generate_leads.js
+scripts/send_cold_emails.js

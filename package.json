@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "sales:run": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js run",
+    "sales:status": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js status",
+    "sales:export": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js export",
+    "sales:mail": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js mail"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",

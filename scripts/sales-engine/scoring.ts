@@ -2,9 +2,9 @@ import { BusinessLead } from './types';
 
 export function calculateTriajeFitScore(lead: Partial<BusinessLead>): number {
   let score = 0;
-  const evidence: Array<{ signal: string; source: string; observedValue: any; scoreContribution: number }> = [];
+  const evidence: Array<{ signal: string; source: string; observedValue: unknown; scoreContribution: number }> = [];
 
-  const addScore = (signal: string, val: any, points: number, source: string = 'OSINT') => {
+  const addScore = (signal: string, val: unknown, points: number, source: string = 'OSINT') => {
     score += points;
     evidence.push({ signal, source, observedValue: val, scoreContribution: points });
   };

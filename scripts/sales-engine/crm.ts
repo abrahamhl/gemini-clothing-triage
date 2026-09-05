@@ -35,7 +35,7 @@ export class LocalCRM {
     fs.writeFileSync(LEADS_FILE, jsonl + '\n');
   }
 
-  public queueEmailDraft(leadId: string, emailContent: any): void {
+  public queueEmailDraft(leadId: string, emailContent: unknown): void {
     const filePath = path.join(QUEUE_DIR, `${leadId}.json`);
     fs.writeFileSync(filePath, JSON.stringify(emailContent, null, 2));
   }
