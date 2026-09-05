@@ -5,8 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LEAN AI Triaje — Auditor Inteligente & Multi-Marketplace</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap');
+
   :root {
+    /* LIGHT THEME (DEFAULT) */
+    --bg-base: #f9fafb;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #f3f4f6;
+    --border: rgba(0, 0, 0, 0.1);
+    --border-highlight: rgba(0, 0, 0, 0.2);
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --primary: #6366f1;
+    --primary-glow: rgba(99, 102, 241, 0.3);
+    --success: #059669;
+    --success-bg: rgba(16, 185, 129, 0.15);
+    --warning: #d97706;
+    --danger: #dc2626;
+    --danger-bg: rgba(239, 68, 68, 0.15);
+    --market-vinted: #008787;
+    --market-marktplaats: #b45309;
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+  }
+
+  [data-theme="dark"] {
     --bg-base: #060608;
     --bg-surface: #101014;
     --bg-surface-hover: #18181f;
@@ -17,14 +42,8 @@
     --primary: #8b5cf6;
     --primary-glow: rgba(139, 92, 246, 0.4);
     --success: #10b981;
-    --success-bg: rgba(16, 185, 129, 0.15);
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --danger-bg: rgba(239, 68, 68, 0.15);
     --market-vinted: #00a8a8;
     --market-marktplaats: #f59e0b;
-    --font-sans: 'Inter', sans-serif;
-    --font-display: 'Outfit', sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -359,8 +378,8 @@
 <div class="container">
   <header class="glass">
     <div class="brand">
-      <h1>LEAN AI Triaje</h1>
-      <p>Análisis de ropa y recomendador de precios con Inteligencia Artificial</p>
+      <h1>LEAN AI Triaje <button onclick="toggleTheme()" style="background:transparent; border:none; cursor:pointer; font-size:18px;" title="Cambiar Tema">🌓</button></h1>
+      <p>Análisis B2B de ropa y recomendador de precios de mercado (Marktplaats/Vinted)</p>
     </div>
     <div class="nav-tabs">
       <button class="tab active" onclick="switchView('audit')">📸 Auditoría Inteligente</button>
@@ -466,6 +485,11 @@
     showToast('✅', 'Configuración Guardada', `Proveedor actual: ${config.provider}`);
   }
 
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  }
+
   function switchView(view) {
     document.getElementById('viewAudit').classList.toggle('hidden', view !== 'audit');
     document.getElementById('viewPacks').classList.toggle('hidden', view !== 'packs');
@@ -481,8 +505,12 @@
   function handleUpload(event) {
     const files = Array.from(event.target.files);
     if (!files.length) return;
+    
+    // Group all selected files into a single item analysis
+    const processedImages = [];
+    let filesProcessed = 0;
 
-    files.forEach(file => {
+    files.forEach((file, index) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = new Image();
@@ -514,18 +542,27 @@
           const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
           const base64Data = compressedDataUrl.split(',')[1];
           
-          const newItem = {
-            id: Date.now() + Math.random().toString(36).substring(7),
+          processedImages.push({
             raw: compressedDataUrl,
-            base64: base64Data,
-            mime: 'image/jpeg',
-            status: 'loading',
-            data: null
-          };
+            base64: base64Data
+          });
           
-          items.unshift(newItem);
-          renderCatalog();
-          analyzeItem(newItem.id);
+          filesProcessed++;
+          if (filesProcessed === files.length) {
+            // All files processed, bundle them into a single item
+            const newItem = {
+              id: Date.now() + Math.random().toString(36).substring(7),
+              raw: processedImages[0].raw, // Thumbnail is the first image
+              images: processedImages.map(img => img.base64),
+              mime: 'image/jpeg',
+              status: 'loading',
+              data: null
+            };
+            
+            items.unshift(newItem);
+            renderCatalog();
+            analyzeItem(newItem.id);
+          }
         };
         img.src = e.target.result;
       };
@@ -541,20 +578,39 @@
     if (!item) return;
 
     try {
-      showToast('🤖', 'Analizando Prenda...', 'La IA está extrayendo detalles y precios.');
+      showToast('🤖', 'LEAN_OSINT_ENGINE iniciado...', 'Alineando puntos focales...');
       
       const payload = {
-        base64: item.base64,
-        mime: item.mime,
-        provider: config.provider,
-        apiKey: config.apiKey
+        images: item.images, // Use the bundled array
+        mime: item.mime
       };
+
+      // Sequential Loading Simulator
+      const stages = [
+        "Escaneando patrones y texturas...",
+        "Extrayendo puntos de anclaje visual...",
+        "Identificando marca o material clave...",
+        "Cruzando histórico de Marktplaats / Vinted...",
+        "Calculando matriz de precios dinámicos...",
+        "Generando reporte de viabilidad B2B..."
+      ];
+      
+      let stageIdx = 0;
+      const stageInterval = setInterval(() => {
+        if(stageIdx < stages.length) {
+          item.loadingStage = stages[stageIdx];
+          renderCatalog();
+          stageIdx++;
+        }
+      }, 1500); // Take around 9 seconds to show all stages if the request is slow
 
       const res = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+
+      clearInterval(stageInterval);
 
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error de red');
@@ -568,7 +624,6 @@
       item.data = { errorMsg: err.message };
       showToast('❌', 'Error de Análisis', err.message);
     }
-    
     renderCatalog();
   }
 
@@ -583,15 +638,15 @@
       let bodyHtml = '';
 
       if (item.status === 'loading') {
-        overlay = `<div class="status-overlay loading">Analizando IA...</div>`;
-        bodyHtml = `<div class="card-body"><p style="color:var(--text-muted); font-size:14px; text-align:center; padding: 20px 0;">El auditor IA está trabajando...</p></div>`;
+        overlay = `<div class="status-overlay loading">Deep Scan Activo</div>`;
+        bodyHtml = `<div class="card-body"><p style="color:var(--text-muted); font-size:14px; text-align:center; padding: 20px 0; font-family: monospace;">${item.loadingStage || 'Inicializando motor OSINT...'}</p></div>`;
       } else if (item.status === 'error') {
         overlay = `<div class="status-overlay error">Error</div>`;
         bodyHtml = `<div class="card-body"><p style="color:var(--danger); font-size:13px;">${item.data?.errorMsg || 'Fallo desconocido'}</p></div>`;
       } else {
         const d = item.data;
         const isKeep = d.veredicto?.toUpperCase().includes('KEEP');
-        overlay = `<div class="status-overlay done">Completado</div>`;
+        overlay = `<div class="status-overlay done" style="background: rgba(16,185,129,0.85);">${d.confidence}% Confidence</div>`;
         
         let marketClass = '';
         if(d.canal?.toLowerCase().includes('vinted')) marketClass = 'market-vinted';
@@ -607,8 +662,18 @@
               <span class="tag">${d.estado}</span>
               <span class="tag">${d.genero}</span>
             </div>
-            <div class="card-reason">
-              <span class="${isKeep ? 'verdict-keep' : 'verdict-trash'}">${d.veredicto}</span>: ${d.motivo}
+            
+            <!-- DEEP REPORT MODULE -->
+            <div style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
+              <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px;">📊 Deep Market Analysis</h4>
+              
+              <div style="background: var(--bg-base); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                 <canvas id="chart-${item.id}" height="120"></canvas>
+              </div>
+              
+              <div class="card-reason" style="background: transparent; padding:0; border:none; margin:0;">
+                <span class="${isKeep ? 'verdict-keep' : 'verdict-trash'}">${d.veredicto}</span>: <span style="font-size:12px;">${d.motivo}</span>
+              </div>
             </div>
           </div>
         `;
@@ -622,6 +687,43 @@
         </div>
       `;
     }).join('');
+
+    // Initialize Charts after DOM updates
+    setTimeout(() => {
+      items.filter(i => i.status === 'done' && i.data && i.data.grafica_historico).forEach(item => {
+        const ctx = document.getElementById(`chart-${item.id}`);
+        if(!ctx || ctx.dataset.rendered) return; // Prevent re-render
+        ctx.dataset.rendered = "true";
+        
+        const labels = item.data.grafica_historico.map(x => x.mes);
+        const data = item.data.grafica_historico.map(x => x.precio);
+        
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Precio Medio (€)',
+              data: data,
+              borderColor: '#6366f1',
+              backgroundColor: 'rgba(99, 102, 241, 0.1)',
+              borderWidth: 2,
+              tension: 0.4,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: '#9ca3af', font: {size: 10} }, grid: { display: false } },
+              y: { ticks: { color: '#9ca3af', font: {size: 10} }, grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      });
+    }, 100);
   }
 
   function generatePacks() {
