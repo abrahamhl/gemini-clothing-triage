@@ -32,3 +32,14 @@ TRADE-OFF: Required building a new React onboarding flow (CompetitorOnboarding.t
 FILES AFFECTED: src/components/CompetitorOnboarding.tsx, src/app/(app)/capturar/page.tsx, src/lib/ai/vision.ts
 EVIDENCE: The app now forces a Business Profile setup before allowing image capture.
 FOLLOW-UP: Implement real SERP scraping (Apify) for the V2.
+
+DEC-004
+STATUS: accepted
+CONTEXT: Repository governance updated to strictly separate public/recruiter claims from internal history, prohibiting manipulative wording ("trap", "stealing", "FOMO") outside historical logs.
+OPTIONS CONSIDERED: 1) Rewrite all historical capsules. 2) Leave capsules as immutable history and create a sanitized \docs/recruiter-safe/\ layer.
+DECISION: Capsules remain immutable. Create sanitized derived layer.
+WHY: Preserves engineering provenance and actual chain-of-thought while complying with public-facing documentation safety rules.
+TRADE-OFF: Redundancy between historical raw files and recruiter-safe files.
+FILES AFFECTED: docs/recruiter-safe/*
+EVIDENCE: This decision log entry.
+FOLLOW-UP: Generate the recruiter-safe layer.
