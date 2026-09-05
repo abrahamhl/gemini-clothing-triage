@@ -72,7 +72,7 @@ export function CaptureModal({
     
     const attempts = parseInt(localStorage.getItem('demo_attempts') || '0', 10);
     if (attempts >= 10) {
-      setError("Has superado el límite de 10 intentos gratuitos de demo. Contáctanos para adquirir la versión ilimitada.");
+      setError("Has completado tu cuota de Market Intelligence (10 escaneos). Para monitorizar a tu competencia sin límites y automatizar la tasación diaria de tu inventario, activa la licencia 'LEAN AI Unlimited' contactando con AuxDesign.");
       return;
     }
     localStorage.setItem('demo_attempts', (attempts + 1).toString());
