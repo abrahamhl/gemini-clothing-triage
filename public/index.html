@@ -456,7 +456,15 @@
             <h2 style="font-family: var(--font-display); font-size: 22px;">Buscador de Distribuidores B2B</h2>
             <p style="color:var(--text-muted); font-size:14px; margin-top:4px;">Encuentra tiendas vintage y mayoristas locales en Países Bajos para ofrecerles la demo.</p>
           </div>
-          <button class="btn btn-primary" onclick="searchLeads()" style="background: linear-gradient(135deg, #6366f1, #a855f7); border-color: transparent;">🔍 Buscar Competidores (NL)</button>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <select id="radiusSelect" class="btn" style="background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border);">
+              <option value="10000">Radio: 10 km</option>
+              <option value="50000">Radio: 50 km</option>
+              <option value="100000" selected>Radio: 100 km</option>
+              <option value="200000">Radio: 200 km (Toda NL)</option>
+            </select>
+            <button class="btn btn-primary" onclick="searchLeads()" style="background: linear-gradient(135deg, #6366f1, #a855f7); border-color: transparent;">🔍 Buscar Competidores (Arnhem)</button>
+          </div>
         </div>
       </div>
       <div class="catalog-grid" id="leadsGrid"></div>
@@ -824,54 +832,71 @@
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
     }, 4000);
+  }
 
-    // B2B LEADS SEARCH (OpenStreetMap Nominatim)
-    async function searchLeads() {
-      const grid = document.getElementById('leadsGrid');
-      grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text-muted); grid-column: 1/-1;">Buscando distribuidores en Holanda usando OpenStreetMap...</div>`;
+  async function searchLeads() {
+    const grid = document.getElementById('leadsGrid');
+    const radius = document.getElementById('radiusSelect').value;
+    grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text-muted); grid-column: 1/-1;">Escaneando comercios en un radio de ${radius/1000}km desde Arnhem usando Overpass OSINT...</div>`;
+    
+    try {
+      // Arnhem Coordinates
+      const lat = 51.9851;
+      const lon = 5.8987;
       
-      try {
-        const query = encodeURIComponent("vintage clothing store in Netherlands");
-        const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=15`;
-        
-        const response = await fetch(url, { headers: { "User-Agent": "TriageDemoApp/1.0" } });
-        const data = await response.json();
-        
-        if (!data || data.length === 0) {
-          grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--danger); grid-column: 1/-1;">No se encontraron resultados públicos.</div>`;
-          return;
-        }
+      const overpassQuery = `
+        [out:json];
+        (
+          node["shop"="clothes"](around:${radius},${lat},${lon});
+          node["shop"="vintage"](around:${radius},${lat},${lon});
+          node["shop"="second_hand"](around:${radius},${lat},${lon});
+        );
+        out 25;
+      `;
+      
+      const url = `https://overpass-api.de/api/interpreter`;
+      const response = await fetch(url, {
+        method: "POST",
+        body: overpassQuery,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+      });
+      
+      const data = await response.json();
+      
+      if (!data || !data.elements || data.elements.length === 0) {
+        grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--danger); grid-column: 1/-1;">No se encontraron tiendas en este radio.</div>`;
+        return;
+      }
 
-        grid.innerHTML = data.map(store => {
-          const name = store.name || "Tienda Vintage (Sin nombre)";
-          const city = store.address?.city || store.address?.town || store.address?.state || "Holanda";
-          const street = store.address?.road || "";
-          const type = store.type || "Tienda";
-          
-          return `
-            <div class="card" style="padding: 16px;">
-              <div class="card-body">
-                <div class="card-title" style="font-size: 16px;">${name}</div>
-                <div class="tags" style="margin-top: 10px;">
-                  <span class="tag market-vinted">B2B Lead</span>
-                  <span class="tag">${city}</span>
-                </div>
-                <div class="card-reason" style="margin-top: 12px; font-size: 13px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
-                  <strong>Dirección:</strong> ${street} <br/>
-                  <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
-                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + city)}" target="_blank" style="color: #6366f1; text-decoration: none;">Ver en Google Maps</a>
-                    <a href="mailto:?subject=Propuesta Demo: Automatización de Tasación para ${name}" class="btn" style="padding: 4px 12px; font-size: 12px; background: rgba(255,255,255,0.1);">Enviar Correo</a>
-                  </div>
+      grid.innerHTML = data.elements.map(store => {
+        const tags = store.tags || {};
+        const name = tags.name || "Tienda Vintage (Sin nombre)";
+        const city = tags['addr:city'] || "Holanda (Alrededores Arnhem)";
+        const street = tags['addr:street'] || "";
+        const type = tags.shop === 'clothes' && tags.second_hand === 'only' ? 'Vintage / Segunda Mano' : 'Tienda Ropa';
+        
+        return `
+          <div class="card" style="padding: 16px;">
+            <div class="card-body">
+              <div class="card-title" style="font-size: 16px;">${name}</div>
+              <div class="tags" style="margin-top: 10px;">
+                <span class="tag market-vinted">B2B Lead</span>
+                <span class="tag">${city}</span>
+              </div>
+              <div class="card-reason" style="margin-top: 12px; font-size: 13px; padding-top: 12px; border-top: 1px solid var(--border);">
+                📍 <strong>Ubicación:</strong> ${street} ${city}<br>
+                🏬 <strong>Tipo:</strong> ${type}<br>
+                <div style="margin-top: 12px; display:flex; gap: 8px;">
+                  <button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${store.lat},${store.lon}', '_blank')" style="flex:1; padding: 8px; font-size:12px;">🗺️ Ver Mapa</button>
+                  <button class="btn btn-primary" onclick="alert('Generando email frío para ${name} ofreciendo el LEAN OSINT Engine...')" style="flex:1; padding: 8px; font-size:12px;">✉️ Pitch Demo</button>
                 </div>
               </div>
             </div>
-          `;
-        }).join('');
-        
-        showToast('🎯', 'Leads Encontrados', `Se han importado ${data.length} tiendas vintage holandesas.`);
-      } catch (e) {
-        grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--danger); grid-column: 1/-1;">Error al buscar leads: ${e.message}</div>`;
-      }
+          </div>
+        `;
+      }).join('');
+    } catch (err) {
+      grid.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--danger); grid-column: 1/-1;">Error de conexión: ${err.message}</div>`;
     }
   }
 </script>
