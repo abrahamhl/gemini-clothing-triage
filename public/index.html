@@ -420,11 +420,11 @@
       <div class="dashboard">
         <div class="stat-card glass">
           <div class="stat-value" id="countTotal">0</div>
-          <div class="stat-label">Prendas Procesadas</div>
+          <div class="stat-label">Fotos Escaneadas</div>
         </div>
         <div class="stat-card glass">
           <div class="stat-value" id="countProcessed">0</div>
-          <div class="stat-label">Tasaciones Completadas</div>
+          <div class="stat-label">Artículos Tasados</div>
         </div>
       </div>
 
@@ -628,7 +628,8 @@
   }
 
   function renderCatalog() {
-    document.getElementById('countTotal').textContent = items.length;
+    const totalPhotos = items.reduce((acc, item) => acc + (item.images ? item.images.length : 1), 0);
+    document.getElementById('countTotal').textContent = totalPhotos;
     document.getElementById('countProcessed').textContent = items.filter(i => i.status === 'done').length;
 
     const grid = document.getElementById('catalogGrid');
@@ -679,10 +680,17 @@
         `;
       }
 
+      const photoBadge = item.images && item.images.length > 1 
+        ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; padding:4px 8px; border-radius:6px; font-size:11px; z-index:10; backdrop-filter:blur(4px); font-weight:600;">📸 ${item.images.length} Fotos Analizadas</div>` 
+        : '';
+
       return `
         <div class="card">
           ${overlay}
-          <img src="${item.raw}" class="card-img" alt="Prenda">
+          <div style="position:relative;">
+            <img src="${item.raw}" class="card-img" alt="Prenda">
+            ${photoBadge}
+          </div>
           ${bodyHtml}
         </div>
       `;
