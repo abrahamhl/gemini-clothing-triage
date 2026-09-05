@@ -130,36 +130,14 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
         try { sa = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON); } catch (e) {}
       }
       
-      if (!sa) throw new Error("Google Cloud Service Account no configurado en Vercel (GOOGLE_APPLICATION_CREDENTIALS_JSON).");
-      const token = await getAccessToken(sa);
+      const envApiKey = process.env.GEMINI_API_KEY;
 
-      let vertexUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-3.6-flash:generateContent`;
-      let apiRes = await fetch(vertexUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          contents: [{
-            role: 'user',
-            parts: [
-              { text: prompt },
-              { inline_data: { mime_type: mime || 'image/jpeg', data: base64 } }
-            ]
-          }]
-        })
-      });
-
-      let data = await apiRes.json();
-      if (!apiRes.ok) {
-        let genUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`;
-        apiRes = await fetch(genUrl, {
+      if (envApiKey) {
+        // Use AI Studio direct API Key
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${envApiKey}`;
+        const resGem = await fetch(url, {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{
               parts: [
@@ -169,11 +147,41 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
             }]
           })
         });
-        data = await apiRes.json();
-      }
+        
+        const dataGem = await resGem.json();
+        if (!resGem.ok) throw new Error(dataGem.error?.message || "Error en Gemini API (Key)");
+        textResponse = dataGem.candidates[0].content.parts[0].text;
+      } else {
+        // Vertex AI
+        if (!sa) throw new Error("Ni GEMINI_API_KEY ni GOOGLE_APPLICATION_CREDENTIALS_JSON configurados en Vercel.");
+        const token = await getAccessToken(sa);
 
-      if (!apiRes.ok) throw new Error(data.error?.message || 'Error en API Google Cloud');
-      textResponse = data.candidates[0].content.parts[0].text;
+        let vertexUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-3.6-flash:generateContent`;
+        let apiRes = await fetch(vertexUrl, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            contents: [{
+              role: 'user',
+              parts: [
+                { text: prompt },
+                { inline_data: { mime_type: mime || 'image/jpeg', data: base64 } }
+              ]
+            }]
+          })
+        });
+
+        let data = await apiRes.json();
+        
+        if (!apiRes.ok) {
+          throw new Error("Vertex AI Error: " + (data.error?.message || JSON.stringify(data)));
+        }
+
+        textResponse = data.candidates[0].content.parts[0].text;
+      }
     }
 
     const clean = textResponse.replace(/```json|```/g, '').trim();
