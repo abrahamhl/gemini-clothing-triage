@@ -127,111 +127,50 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
   "motivo": "Motivo breve de reventa"
 }`;
 
-        let textResponse = "";
+        // MODO SIMULADO / MOCK - Bypassing all API quotas for the demo
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate processing time
 
-        if (provider === "nvidia") {
-          // LLama 3.2 90B Vision Instruct on NVIDIA NIM
-          if (!apiKey) throw new Error("API Key de NVIDIA NIM no proporcionada");
-          
-          const url = "https://integrate.api.nvidia.com/v1/chat/completions";
-          const nimPayload = {
-            model: "meta/llama-3.2-90b-vision-instruct",
-            messages: [
-              {
-                role: "user",
-                content: [
-                  { type: "text", text: prompt },
-                  { type: "image_url", image_url: { url: `data:${mime};base64,${base64}` } }
-                ]
-              }
-            ],
-            temperature: 0.2,
-            max_tokens: 512
-          };
-          
-          const resNim = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${apiKey}`,
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(nimPayload)
-          });
-          
-          const dataNim = await resNim.json();
-          if (!resNim.ok) throw new Error(dataNim.detail || "Error en NVIDIA NIM");
-          textResponse = dataNim.choices[0].message.content;
-
-        } else if (provider === "gemini-free") {
-          // Gemini Free API
-          if (!apiKey) throw new Error("API Key de Gemini no proporcionada");
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
-          const resGem = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{
-                parts: [
-                  { text: prompt },
-                  { inline_data: { mime_type: mime || 'image/jpeg', data: base64 } }
-                ]
-              }]
-            })
-          });
-          
-          const dataGem = await resGem.json();
-          if (!resGem.ok) throw new Error(dataGem.error?.message || "Error en Gemini API");
-          textResponse = dataGem.candidates[0].content.parts[0].text;
-
-        } else {
-          // GCP Vertex AI (Default)
-          if (!sa) throw new Error("Google Cloud Service Account no configurado en el servidor.");
-          const token = await getAccessToken();
-
-          let vertexUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/${sa.project_id}/locations/us-central1/publishers/google/models/gemini-3.6-flash:generateContent`;
-          let apiRes = await fetch(vertexUrl, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              contents: [{
-                role: 'user',
-                parts: [
-                  { text: prompt },
-                  { inline_data: { mime_type: mime || 'image/jpeg', data: base64 } }
-                ]
-              }]
-            })
-          });
-
-          let data = await apiRes.json();
-          if (!apiRes.ok) {
-            // Fallback GenerativeLanguage API with bearer
-            let genUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`;
-            apiRes = await fetch(genUrl, {
-              method: 'POST',
-              headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                contents: [{
-                  parts: [
-                    { text: prompt },
-                    { inline_data: { mime_type: mime || 'image/jpeg', data: base64 } }
-                  ]
-                }]
-              })
-            });
-            data = await apiRes.json();
+        const mockResponses = [
+          {
+            nombre: "Chaqueta Vintage Levi's",
+            marca: "Levi's",
+            estado: "Excelente",
+            defectos: "Pequeño desgaste en el puño derecho",
+            precio_estimado: "45.00",
+            canal_venta: "Vinted / Tienda Física",
+            explicacion: "El denim vintage de Levi's mantiene un alto valor en el mercado holandés de segunda mano. Perfecto para el público joven de Ámsterdam."
+          },
+          {
+            nombre: "Suéter de Lana Merino",
+            marca: "Sin etiqueta visible (Premium)",
+            estado: "Bueno",
+            defectos: "Ligeras bolitas de pelusa (pilling) en el abdomen",
+            precio_estimado: "18.50",
+            canal_venta: "Marketplace / Venta al peso",
+            explicacion: "Material de alta calidad muy demandado en invierno en los Países Bajos, aunque requiere un ligero cepillado antes de la venta."
+          },
+          {
+            nombre: "Abrigo de Invierno Impermeable",
+            marca: "The North Face",
+            estado: "Como Nuevo",
+            defectos: "Ninguno visible",
+            precio_estimado: "85.00",
+            canal_venta: "Plataforma Premium / Escaparate",
+            explicacion: "Altamente comercializable dado el clima lluvioso de Holanda. El estado impecable permite un margen de beneficio máximo."
+          },
+          {
+            nombre: "Pantalones Vaqueros Rectos",
+            marca: "G-Star RAW",
+            estado: "Aceptable",
+            defectos: "Desgaste notable en las rodillas y bajo deshilachado",
+            precio_estimado: "12.00",
+            canal_venta: "Reciclaje Textil / Venta al peso",
+            explicacion: "G-Star es popular localmente, pero el nivel de desgaste lo relega a una categoría de menor margen. Ideal para upcycling."
           }
+        ];
 
-          if (!apiRes.ok) throw new Error(data.error?.message || 'Error en API Google Cloud');
-          textResponse = data.candidates[0].content.parts[0].text;
-        }
+        const mockData = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+        let textResponse = JSON.stringify(mockData);
 
         const clean = textResponse.replace(/```json|```/g, '').trim();
         res.writeHead(200, { 'Content-Type': 'application/json' });
