@@ -1,0 +1,123 @@
+=== PRECIO BASE EUR POR MARCA/MODELO (Median Very Good Used NL) ===
+
+--- FASHION / CLOTHING ---
+Stone Island Jacket / Ov  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                   | 200 EUR
+H&M / DIVIDED Jacket / B  |Ôûê                                       | 12 EUR
+Zara Jacket / Blazer Tre  |ÔûêÔûê                                      | 15 EUR
+Geisha Leren Jas / Jacke  |ÔûêÔûê                                      | 22 EUR
+McGregor Winter Jas / Ja  |Ôûê                                       | 10 EUR
+Gucci Jacket / Blazer De  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê| 380 EUR
+State of Art Jacket / Po  |ÔûêÔûêÔûê                                     | 25 EUR
+Jack & Jones Jacket / Le  |ÔûêÔûê                                      | 20 EUR
+Adidas Jacket / Sweater   |ÔûêÔûêÔûê                                     | 25 EUR
+Puma Jacket / Sweater Sp  |ÔûêÔûê                                      | 18 EUR
+Local Designer Amsterdam  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûê                                 | 65 EUR
+
+--- AUDIO VINTAGE (detailed models) ---
+Bowers & Wilkins (B&W) D  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                        | 150 EUR
+Bowers & Wilkins (B&W) D  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                           | 120 EUR
+Bowers & Wilkins (B&W) S  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê              | 250 EUR
+Magnat Speakers 2-way ba  |ÔûêÔûêÔûêÔûêÔûê                                   | 50 EUR
+JBL Speakers / Studio IR  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                             | 100 EUR
+JBL SUB200 / SUB230 Subw  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                            | 110 EUR
+Philips Vintage Speakers  |ÔûêÔûêÔûêÔûêÔûêÔûê                                  | 55 EUR
+Vintage Hi-Fi Speakers M  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                                | 80 EUR
+Premium Edition Speakers  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                 | 220 EUR
+Life Speakers General sp  |ÔûêÔûêÔûêÔûê                                    | 35 EUR
+Sony Speakers Vintage /   |ÔûêÔûêÔûêÔûêÔûê                                   | 45 EUR
+Sound Systems 2.1 System  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                                | 75 EUR
+Sound Systems 5.1 System  |ÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûêÔûê                         | 140 EUR
+
+=== KEY STATISTICS ===
+Average Fashion: 72 EUR
+Average Audio Vintage: 110 EUR
+Top 3 value: Gucci Jacket / Blazer: 380, Bowers & Wilkins (B&W) Serie V / 802: 250, Premium Edition Speakers England / Denmark: 220
+Bottom 3 value: McGregor Winter Jas / Jacket: 10, H&M / DIVIDED Jacket / Blazer: 12, Zara Jacket / Blazer: 15
+
+=== DATA FOR CHARTS (JSON) ===
+{
+  "labels": [
+    "Stone Island Jacket ",
+    "H&M / DIVIDED Jacket",
+    "Zara Jacket / Blazer",
+    "Geisha Leren Jas / J",
+    "McGregor Winter Jas ",
+    "Gucci Jacket / Blaze",
+    "State of Art Jacket ",
+    "Jack & Jones Jacket ",
+    "Adidas Jacket / Swea",
+    "Puma Jacket / Sweate",
+    "Local Designer Amste",
+    "Bowers & Wilkins (B&",
+    "Bowers & Wilkins (B&",
+    "Bowers & Wilkins (B&",
+    "Magnat Speakers",
+    "JBL Speakers / Studi",
+    "JBL SUB200 / SUB230",
+    "Philips Vintage Spea",
+    "Vintage Hi-Fi Speake",
+    "Premium Edition Spea",
+    "Life Speakers Genera",
+    "Sony Speakers",
+    "Sound Systems 2.1 Sy",
+    "Sound Systems 5.1 Sy"
+  ],
+  "prices": [
+    200,
+    12,
+    15,
+    22,
+    10,
+    380,
+    25,
+    20,
+    25,
+    18,
+    65,
+    150,
+    120,
+    250,
+    50,
+    100,
+    110,
+    55,
+    80,
+    220,
+    35,
+    45,
+    75,
+    140
+  ],
+  "categories": [
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Fashion",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio",
+    "Audio"
+  ],
+  "summary": {
+    "avgFashion": 72,
+    "avgAudio": 110
+  }
+}
+
+Graphs data also saved. Use this JSON in your app for bar/line charts (e.g. price by item, audio vs fashion pie or grouped bar).

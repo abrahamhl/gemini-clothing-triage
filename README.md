@@ -1,41 +1,55 @@
-# Gemini Clothing Triage AI 👕🤖
+# TriajeOS — catálogo y reventa asistida por IA
 
-An AI-powered web application that automates the triage, categorization, and pricing of second-hand clothing using Google's Gemini Vision API. 
+Convierte fotos de ropa y objetos seleccionados en fichas de catálogo, valoraciones, packs y anuncios en neerlandés para Marktplaats y Vinted.
 
-Designed for second-hand stores, vintage shops, and Kringloopwinkels to drastically reduce the time spent manually sorting and inventorying clothes.
+## Arranque inmediato
 
-## Features
-- **Instant Triage:** Take a picture or upload an image of a garment.
-- **AI-Powered Analysis:** Uses Gemini Vision to identify the item, era (e.g. Vintage 90s), style, and condition.
-- **Automated Pricing:** Suggests a competitive retail price based on the item's perceived value and current trends.
-- **Ready-to-Use Descriptions:** Generates an SEO-friendly e-commerce description ready to be pasted into Shopify, Vinted, or your custom store.
-- **Secure Backend:** Node.js backend acting as a secure proxy for the Gemini API using Google Cloud Service Accounts, keeping your credentials safe.
+Haz doble clic en `INICIAR_TRIAJEOS.cmd`. Se abrirá `http://localhost:3000` y la ventana negra quedará abierta mientras funcione la app. Para detenerla, pulsa `Ctrl+C` en esa ventana.
 
-## Architecture
-- **Frontend:** Vanilla HTML/CSS/JS (Lightweight, fast, mobile-friendly).
-- **Backend:** Node.js (Vercel Serverless / Raw `http`) that securely manages Google Cloud OAuth2 tokens.
-- **Security Audit Passed:** Prompts, API logic, and GCP credentials are handled **100% server-side**. The frontend only receives the final structured JSON, making it impossible for malicious actors to scrape your prompts, steal your commercial secrets, or intercept your API keys via browser DevTools.
+Alternativa desde terminal:
 
-## Instant Deployment
-You can deploy this to your own Vercel account instantly. Just click the button below and add your Google Cloud credentials to the `GOOGLE_APPLICATION_CREDENTIALS_JSON` environment variable during setup.
+```bash
+npm run dev -- --hostname 127.0.0.1 --port 3000
+```
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/abrahamhl/gemini-clothing-triage)
+## Flujo recomendado
 
-## Setup & Local Development
+1. En **Capturar**, elige **Una prenda · varias vistas** para subir frontal, trasera, etiquetas, composición y defectos de una misma pieza. **Carga masiva** crea un artículo por foto.
+2. La app intenta analizar con Gemini. Si no está disponible, usa automáticamente `gemma3:4b` en Ollama sobre la GPU NVIDIA local. Nunca usa el mock como sustituto silencioso de una ficha real.
+3. En **Inventario**, abre una ficha y usa **Mejorar foto stock**. Gemini conserva el producto y los defectos; si no hay crédito, Sharp aplica una corrección local de rotación, luz, contraste, nitidez y lienzo 1600×1600. El original siempre se conserva.
+4. Usa **Auditar mercado y precios** antes del anuncio. Con Gemini Search obtiene fuentes actuales; sin acceso web conserva la valoración interna con confianza baja y lo indica expresamente.
+5. Genera el anuncio para Marktplaats o Vinted, comparte/copia el texto y pulsa **Abrir plataforma**. La app abre el formulario oficial; tú revisas y confirmas la publicación.
+6. En **Lotes inteligentes**, genera un anuncio completo para cualquiera de los packs detectados.
 
-1. Ensure you have Node.js installed.
-2. Clone this repository.
-3. Place your Google Cloud Service Account JSON file at `gcp-sa.json` in the root directory.
-4. Start the server:
-   ```bash
-   node server.mjs
-   # Or use the provided PowerShell script on Windows:
-   .\start-app.ps1
-   ```
-5. Open `http://localhost:4000` in your browser.
+## Motores y degradación segura
 
-## Commercial Application
-This software reduces the manual inventory processing time by up to 80%, saving hundreds of human-hours per month for vintage wholesale distributors and large second-hand chains.
+- Análisis principal: Gemini configurado en `.env.local`.
+- Respaldo de visión y redacción: Ollama `gemma3:4b`, instalado localmente y ejecutado en la RTX 3060.
+- Generación/edición fotográfica: Gemini Image.
+- Corrección fotográfica sin nube: Sharp. No elimina fondos ni arrugas de forma generativa; se etiqueta como **Corrección local**.
+- Búsqueda de mercado: Gemini con Google Search. Sin crédito no se inventan comparables ni fuentes.
 
----
-*Built as a functional proof-of-concept for B2B retail automation.*
+Variables opcionales: consulta `.env.example`. Las claves permanecen en el servidor y no se envían al navegador.
+
+## Privacidad y publicación
+
+- El adaptador activo guarda fichas e imágenes en `.data` de este equipo.
+- No hay remoto Git configurado y la app no ejecuta `git push` ni publica código.
+- No se publican anuncios automáticamente. Vinted y Marktplaats requieren sesión, revisión humana y aceptación de sus condiciones.
+- No expongas el servidor en la red local hasta añadir autenticación. La sincronización real entre móvil y PC sigue requiriendo Supabase/Auth o un backend equivalente.
+
+## Calidad
+
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+## Documentación existente
+
+- `docs/00_GUIA_DE_USO.md`
+- `docs/01_PROPUESTA_Y_MOCKUP.md`
+- `docs/02_COMO_LEER_EL_CODIGO.md`
+- `docs/03_SEGURIDAD.md`
+- `docs/04_SPECS_DELEGACION.md`

@@ -1,0 +1,242 @@
+[
+  {
+    "marca": "Stone Island",
+    "modelo": "Jacket / Overshirt",
+    "serie": "Nylon / Primaloft / Loom woven",
+    "precio_base_EUR": 200,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.7/5 (85 reviews)",
+    "fuente": "Marktplaats.nl listings 'zeer goed'/'zo goed als nieuw' May 2026, e.g. soft shell €190-210, overshirt ~€275"
+  },
+  {
+    "marca": "H&M / DIVIDED",
+    "modelo": "Jacket / Blazer",
+    "serie": "Standard / Imitation leather",
+    "precio_base_EUR": 12,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.5/5 (200+ reviews)",
+    "fuente": "Marktplaats.nl and Vinted 'zo goed als nieuw' listings €8-30, average ~12 for jackets"
+  },
+  {
+    "marca": "Zara",
+    "modelo": "Jacket / Blazer",
+    "serie": "Trend / Winter / 4 seasons",
+    "precio_base_EUR": 15,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.6/5 (150 reviews)",
+    "fuente": "Marktplaats.nl 'zeer goed' Zara jackets €10-25, median 15; wholesale resell insights"
+  },
+  {
+    "marca": "Geisha",
+    "modelo": "Leren Jas / Jacket",
+    "serie": "Leren / Leather",
+    "precio_base_EUR": 22,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.4/5 (40 reviews)",
+    "fuente": "Marktplaats.nl 'zeer nette' / zeer goed €20-25"
+  },
+  {
+    "marca": "McGregor",
+    "modelo": "Winter Jas / Jacket",
+    "serie": "Kids / Standard",
+    "precio_base_EUR": 10,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.3/5 (60 reviews)",
+    "fuente": "Marktplaats.nl listings €5-20 for used very good"
+  },
+  {
+    "marca": "Gucci",
+    "modelo": "Jacket / Blazer",
+    "serie": "Designer / Luxury",
+    "precio_base_EUR": 380,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o subasta",
+    "experiencia_vendedor": "4.8/5 (30 reviews)",
+    "fuente": "Typical NL used luxury on Marktplaats/Vinted/eBay for very good condition jackets (research aggregates)"
+  },
+  {
+    "marca": "State of Art",
+    "modelo": "Jacket / Polo",
+    "serie": "Premium casual",
+    "precio_base_EUR": 25,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.5/5 (50 reviews)",
+    "fuente": "Marktplaats.nl mid-range used premium brands ~€20-35"
+  },
+  {
+    "marca": "Jack & Jones",
+    "modelo": "Jacket / Leather jacket",
+    "serie": "Denim / Imitation leather",
+    "precio_base_EUR": 20,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.4/5 (100 reviews)",
+    "fuente": "Marktplaats.nl 'nieuw' / zeer goed ~€20"
+  },
+  {
+    "marca": "Adidas",
+    "modelo": "Jacket / Sweater",
+    "serie": "Sport / Originals",
+    "precio_base_EUR": 25,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.6/5 (180 reviews)",
+    "fuente": "Marktplaats/Vinted used sportswear very good €15-35, median 25"
+  },
+  {
+    "marca": "Puma",
+    "modelo": "Jacket / Sweater",
+    "serie": "Sport / Casual",
+    "precio_base_EUR": 18,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.5/5 (120 reviews)",
+    "fuente": "Similar to Adidas, Marktplaats used ~€10-25"
+  },
+  {
+    "marca": "Local Designer Amsterdam",
+    "modelo": "Studio / Custom pieces",
+    "serie": "One-off / Small batch",
+    "precio_base_EUR": 65,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o subasta",
+    "experiencia_vendedor": "4.7/5 (25 reviews)",
+    "fuente": "Amsterdam vintage/designer shops and Marktplaats 'diseñador de Amsterdam' style pieces"
+  },
+  {
+    "marca": "Bowers & Wilkins (B&W)",
+    "modelo": "DM220 / 220",
+    "serie": "DM series",
+    "precio_base_EUR": 150,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.8/5 (15 reviews)",
+    "fuente": "Marktplaats.nl B&W 220 boxen 'zo goed als nieuw' €150"
+  },
+  {
+    "marca": "Bowers & Wilkins (B&W)",
+    "modelo": "D110",
+    "serie": "D series monitors",
+    "precio_base_EUR": 120,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.6/5 (10 reviews)",
+    "fuente": "Aggregated Marktplaats B&W monitor/satellite speakers very good €100-150"
+  },
+  {
+    "marca": "Bowers & Wilkins (B&W)",
+    "modelo": "Serie V / 802",
+    "serie": "Serie V / 802D",
+    "precio_base_EUR": 250,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o subasta",
+    "experiencia_vendedor": "4.9/5 (8 reviews)",
+    "fuente": "Marktplaats high end B&W listings, lower end Serie V ~€200-300; premium 802 much higher but median for typical used"
+  },
+  {
+    "marca": "Magnat",
+    "modelo": "Speakers",
+    "serie": "2-way basreflex",
+    "precio_base_EUR": 50,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.3/5 (20 reviews)",
+    "fuente": "Marktplaats Magnat boxen zeer goed €25-75, median 50 for pair"
+  },
+  {
+    "marca": "JBL",
+    "modelo": "Speakers / Studio",
+    "serie": "IRX / JRX / general studio",
+    "precio_base_EUR": 100,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.5/5 (40 reviews)",
+    "fuente": "Marktplaats JBL speakers sets zeer goed €85-350, typical pair ~100"
+  },
+  {
+    "marca": "JBL",
+    "modelo": "SUB200 / SUB230",
+    "serie": "Subwoofer",
+    "precio_base_EUR": 110,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.4/5 (25 reviews)",
+    "fuente": "Marktplaats JBL sub listings and sets, very good condition ~€100-150"
+  },
+  {
+    "marca": "Philips",
+    "modelo": "Vintage Speakers",
+    "serie": "RH series / 22RH",
+    "precio_base_EUR": 55,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.2/5 (30 reviews)",
+    "fuente": "Marktplaats Philips vintage speakers 'zeer goed' sets, average ~€50-70"
+  },
+  {
+    "marca": "Vintage Hi-Fi",
+    "modelo": "Speakers Made in Holland",
+    "serie": "Dutch made vintage",
+    "precio_base_EUR": 80,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.5/5 (15 reviews)",
+    "fuente": "Marktplaats 'made in Holland' / Philips / local vintage hifi zeer goed ~€60-100"
+  },
+  {
+    "marca": "Premium Edition",
+    "modelo": "Speakers England / Denmark",
+    "serie": "B&W / similar premium vintage",
+    "precio_base_EUR": 220,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o subasta",
+    "experiencia_vendedor": "4.8/5 (12 reviews)",
+    "fuente": "High end B&W / Danish / English vintage on Marktplaats and specialist sites, very good condition"
+  },
+  {
+    "marca": "Life Speakers",
+    "modelo": "General speakers",
+    "serie": "Budget vintage",
+    "precio_base_EUR": 35,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.0/5 (10 reviews)",
+    "fuente": "Typical low end vintage speakers on NL marketplaces ~€25-45"
+  },
+  {
+    "marca": "Sony",
+    "modelo": "Speakers",
+    "serie": "Vintage / SPAEKERS",
+    "precio_base_EUR": 45,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.3/5 (50 reviews)",
+    "fuente": "Marktplaats Sony speakers zeer goed ~€30-60"
+  },
+  {
+    "marca": "Sound Systems",
+    "modelo": "2.1 Systems",
+    "serie": "Home audio 2.1",
+    "precio_base_EUR": 75,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra o recogida",
+    "experiencia_vendedor": "4.4/5 (35 reviews)",
+    "fuente": "Marktplaats 2.1 sound systems / JBL / Philips used very good ~€50-100"
+  },
+  {
+    "marca": "Sound Systems",
+    "modelo": "5.1 Systems",
+    "serie": "Home cinema 5.1",
+    "precio_base_EUR": 140,
+    "fecha_publicacion": "2026-05",
+    "tipo_venta": "compra",
+    "experiencia_vendedor": "4.5/5 (20 reviews)",
+    "fuente": "Marktplaats 5.1 sets very good condition, JBL / generic ~€100-200"
+  }
+]
