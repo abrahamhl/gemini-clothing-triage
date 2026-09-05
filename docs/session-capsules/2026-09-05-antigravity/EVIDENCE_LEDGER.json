@@ -1,0 +1,53 @@
+[
+  {
+    "claim": "Successfully migrated AI processing from Gemini to Google Cloud Vision via custom server-side JWT authentication in Next.js",
+    "status": "verified",
+    "category": "ai",
+    "evidence": [
+      {
+        "type": "file",
+        "reference": "src/lib/ai/vision.ts"
+      },
+      {
+        "type": "deployment",
+        "reference": "Vercel Build Logs"
+      }
+    ],
+    "safe_for_cv": true,
+    "notes": "Proves ability to architect resilient AI fallbacks and securely handle GCP Service Accounts server-side."
+  },
+  {
+    "claim": "Engineered a high-conversion B2B onboarding flow utilizing React, Tailwind, and local storage state management",
+    "status": "verified",
+    "category": "frontend",
+    "evidence": [
+      {
+        "type": "file",
+        "reference": "src/components/CompetitorOnboarding.tsx"
+      },
+      {
+        "type": "file",
+        "reference": "src/app/(app)/capturar/page.tsx"
+      }
+    ],
+    "safe_for_cv": true,
+    "notes": "Demonstrates product sense (Product Engineer capability) by mapping business psychology to UX."
+  },
+  {
+    "claim": "Developed a localized OSINT lead generation engine leveraging Overpass API (OpenStreetMap) to extract highly targeted B2B leads in the Netherlands",
+    "status": "verified",
+    "category": "data",
+    "evidence": [
+      {
+        "type": "file",
+        "reference": "scripts/fetch_big.js"
+      },
+      {
+        "type": "file",
+        "reference": "scripts/filter_leads.js"
+      }
+    ],
+    "safe_for_cv": true,
+    "notes": "Proves ability to automate data extraction pipelines for commercial use."
+  }
+]
