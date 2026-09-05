@@ -1,0 +1,11 @@
+# Internal documentation and generated office artifacts are not part of the web product.
+docs/
+**/*.docx
+
+# Local-only data and agent/session artifacts must never enter deployment context.
+.data/
+*.log
+
+# Repository metadata and local tooling.
+.git/
+.github/
