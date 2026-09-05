@@ -465,23 +465,49 @@
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const base64Raw = e.target.result;
-        const base64Data = base64Raw.split(',')[1];
-        
-        const newItem = {
-          id: Date.now() + Math.random().toString(36).substring(7),
-          raw: base64Raw,
-          base64: base64Data,
-          mime: file.type || 'image/jpeg',
-          status: 'loading', // loading, done, error
-          data: null
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = Math.round((height *= MAX_WIDTH / width));
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = Math.round((width *= MAX_HEIGHT / height));
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Compress to JPEG with 0.8 quality
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          const base64Data = compressedDataUrl.split(',')[1];
+          
+          const newItem = {
+            id: Date.now() + Math.random().toString(36).substring(7),
+            raw: compressedDataUrl,
+            base64: base64Data,
+            mime: 'image/jpeg',
+            status: 'loading',
+            data: null
+          };
+          
+          items.unshift(newItem);
+          renderCatalog();
+          analyzeItem(newItem.id);
         };
-        
-        items.unshift(newItem); // Add to top
-        renderCatalog();
-        
-        // Trigger Analysis immediately (Auditor Constante)
-        analyzeItem(newItem.id);
+        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     });
