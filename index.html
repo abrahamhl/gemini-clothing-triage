@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEAN AI Triaje — Auditor Inteligente & Multi-Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #060608;
+    --bg-surface: #101014;
+    --bg-surface-hover: #18181f;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-highlight: rgba(255, 255, 255, 0.15);
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --primary: #8b5cf6;
+    --primary-glow: rgba(139, 92, 246, 0.4);
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.15);
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.15);
+    --market-vinted: #00a8a8;
+    --market-marktplaats: #f59e0b;
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-base);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(0, 168, 168, 0.06) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+
+  /* UTILS */
+  .container { width: 100%; max-width: 960px; }
+  .glass {
+    background: rgba(16, 16, 20, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .hidden { display: none !important; }
+
+  /* HEADER */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  @media (max-width: 600px) {
+    header { flex-direction: column; gap: 16px; align-items: flex-start; padding: 16px; }
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+  }
+  .brand h1 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .brand p { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
+
+  .nav-tabs { display: flex; gap: 8px; background: rgba(0,0,0,0.2); padding: 6px; border-radius: 12px; }
+  .tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-muted);
+    border: none;
+    background: transparent;
+  }
+  .tab:hover { color: #fff; }
+  .tab.active { background: var(--bg-surface-hover); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+  /* CONFIG PANEL */
+  .config-section {
+    padding: 20px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+  }
+  .config-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .config-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: 12px;
+  }
+  @media (max-width: 600px) {
+    .config-grid { grid-template-columns: 1fr; }
+  }
+  .form-select, .form-input {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: var(--font-sans);
+    outline: none;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .form-select:focus, .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+  .btn {
+    background: var(--text-main);
+    color: var(--bg-base);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,255,255,0.1); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, #6d28d9 100%);
+    color: #fff;
+  }
+  .btn-primary:hover { box-shadow: 0 4px 20px var(--primary-glow); }
+
+  /* UPLOAD ZONE */
+  .upload-zone {
+    border: 2px dashed var(--border-highlight);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .upload-zone:hover {
+    border-color: var(--primary);
+    background: rgba(139, 92, 246, 0.05);
+  }
+  .upload-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--primary), #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .upload-zone h2 { font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
+  .upload-zone p { color: var(--text-muted); font-size: 14px; }
+  .constant-auditor-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: pulse 2s infinite;
+  }
+  .constant-auditor-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+
+  /* CATALOG GRID */
+  .catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .catalog-header h3 { font-family: var(--font-display); font-size: 18px; }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--border-highlight); box-shadow: 0 12px 24px rgba(0,0,0,0.3); }
+  
+  .card-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background: #000;
+  }
+  
+  .status-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .status-overlay.loading { color: var(--primary); }
+  .status-overlay.loading::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  .status-overlay.done { color: var(--success); }
+  .status-overlay.error { color: var(--danger); }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .card-body { padding: 16px; }
+  .card-title { font-weight: 700; font-size: 16px; margin-bottom: 12px; line-height: 1.4; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+  }
+  .tag.price { background: var(--success-bg); color: var(--success); border-color: rgba(16,185,129,0.3); font-size: 13px; }
+  .tag.market-vinted { background: rgba(0, 168, 168, 0.1); color: var(--market-vinted); border-color: rgba(0, 168, 168, 0.3); }
+  .tag.market-marktplaats { background: rgba(245, 158, 11, 0.1); color: var(--market-marktplaats); border-color: rgba(245, 158, 11, 0.3); }
+  .card-reason { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding-top: 12px; border-top: 1px solid var(--border); }
+  
+  .verdict-keep { color: var(--success); font-weight: 700; }
+  .verdict-trash { color: var(--danger); font-weight: 700; }
+
+  /* PACKS VIEW */
+  .packs-container { margin-top: 24px; }
+  .pack-card {
+    background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(20,20,24,0.5) 100%);
+    border: 1px solid var(--border-highlight);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.3s;
+  }
+  .pack-card:hover { border-color: var(--primary); }
+  .pack-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pack-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #fff; }
+  .pack-meta { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .pack-pricing { text-align: right; }
+  .pack-price-new { font-size: 24px; font-weight: 800; color: var(--success); font-family: var(--font-display); }
+  .pack-price-old { font-size: 14px; text-decoration: line-through; color: var(--text-muted); }
+  
+  .pack-items { display: flex; flex-direction: column; gap: 8px; }
+  .pack-item { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); background: rgba(0,0,0,0.2); padding: 8px 12px; border-radius: 8px; }
+  .pack-item-price { font-weight: 600; color: var(--text-muted); }
+
+  /* TOAST NOTIFICATIONS */
+  #toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+  }
+  .toast {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-highlight);
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .toast.show { transform: translateX(0); }
+  .toast-icon { font-size: 20px; }
+  .toast-content { flex: 1; }
+  .toast-title { font-weight: 700; margin-bottom: 2px; }
+  .toast-desc { font-size: 12px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="glass">
+    <div class="brand">
+      <h1>LEAN AI Triaje</h1>
+      <p>Análisis de ropa y recomendador de precios con Inteligencia Artificial</p>
+    </div>
+    <div class="nav-tabs">
+      <button class="tab active" onclick="switchView('audit')">📸 Auditoría Inteligente</button>
+      <button class="tab" onclick="switchView('packs')">📦 Creador de Packs</button>
+    </div>
+  </header>
+
+  <!-- CONFIGURATION -->
+  <div class="glass config-section">
+    <div class="config-title">⚙️ Configuración de API e IA</div>
+    <div class="config-grid">
+      <select id="apiProvider" class="form-select">
+        <option value="gcp">Google Cloud (Vertex AI / $800 Credit)</option>
+        <option value="nvidia">NVIDIA NIM (Llama 3.2 Vision)</option>
+        <option value="gemini-free">Gemini Free API (Key directa)</option>
+      </select>
+      <input type="password" id="apiKeyInput" class="form-input" placeholder="Opcional para GCP (Usa gcp-sa.json). Obligatorio para NIM o Free." />
+      <button class="btn btn-primary" onclick="saveConfig()">Guardar Configuración</button>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
+      💡 Si tienes el archivo <code>gcp-sa.json</code> configurado en el servidor, no necesitas introducir clave para Google Cloud.
+    </p>
+  </div>
+
+  <!-- AUDIT VIEW -->
+  <div id="viewAudit">
+    <!-- UPLOAD ZONE WITH CONSTANT AUDITOR -->
+    <div class="glass upload-zone" onclick="document.getElementById('fileInput').click()">
+      <div class="constant-auditor-badge">Auditor Constante Activo</div>
+      <input type="file" id="fileInput" multiple accept="image/*" capture="environment" class="hidden" onchange="handleUpload(event)">
+      <div class="upload-icon">📸</div>
+      <h2>Añadir prendas (Sube o haz fotos)</h2>
+      <p>La IA analizará automáticamente cada foto en tiempo real al subirla.</p>
+      <div style="margin-top:16px;">
+        <span class="btn" style="background: rgba(255,255,255,0.1); font-size: 13px;">Abrir Cámara / Galería</span>
+      </div>
+    </div>
+
+    <div class="catalog-header">
+      <h3>Catálogo Procesado (<span id="countProcessed">0</span>/<span id="countTotal">0</span>)</h3>
+    </div>
+    <div class="grid" id="catalogGrid">
+      <!-- Items will appear here -->
+    </div>
+  </div>
+
+  <!-- PACKS VIEW -->
+  <div id="viewPacks" class="hidden">
+    <div class="glass config-section" style="margin-bottom: 24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 22px;">Generador de Lotes Rentables</h2>
+          <p style="color:var(--text-muted); font-size:14px; margin-top:4px;">Agrupa tus prendas automáticamente por nicho para vender más rápido con descuento.</p>
+        </div>
+        <button class="btn btn-primary" onclick="generatePacks()">🪄 Crear Packs Automáticos</button>
+      </div>
+    </div>
+    
+    <div id="packsContainer" class="packs-container">
+      <div style="text-align:center; padding: 40px; color: var(--text-muted);">
+        Aún no hay packs generados. Audita algunas prendas y haz clic en "Crear Packs Automáticos".
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+  let config = {
+    provider: localStorage.getItem('lean_ai_provider') || 'gcp',
+    apiKey: localStorage.getItem('lean_ai_key') || ''
+  };
+
+  let items = []; // Array of { id, base64, mime, status, data }
+
+  // Init UI
+  document.getElementById('apiProvider').value = config.provider;
+  document.getElementById('apiKeyInput').value = config.apiKey;
+
+  function saveConfig() {
+    config.provider = document.getElementById('apiProvider').value;
+    config.apiKey = document.getElementById('apiKeyInput').value.trim();
+    localStorage.setItem('lean_ai_provider', config.provider);
+    localStorage.setItem('lean_ai_key', config.apiKey);
+    showToast('✅', 'Configuración Guardada', `Proveedor actual: ${config.provider}`);
+  }
+
+  function switchView(view) {
+    document.getElementById('viewAudit').classList.toggle('hidden', view !== 'audit');
+    document.getElementById('viewPacks').classList.toggle('hidden', view !== 'packs');
+    document.querySelectorAll('.tab').forEach((el, idx) => {
+      el.classList.toggle('active', (idx === 0 && view === 'audit') || (idx === 1 && view === 'packs'));
+    });
+  }
+
+  // Handle file upload and trigger CONSTANT AUDITOR
+  function handleUpload(event) {
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Raw = e.target.result;
+        const base64Data = base64Raw.split(',')[1];
+        
+        const newItem = {
+          id: Date.now() + Math.random().toString(36).substring(7),
+          raw: base64Raw,
+          base64: base64Data,
+          mime: file.type || 'image/jpeg',
+          status: 'loading', // loading, done, error
+          data: null
+        };
+        
+        items.unshift(newItem); // Add to top
+        renderCatalog();
+        
+        // Trigger Analysis immediately (Auditor Constante)
+        analyzeItem(newItem.id);
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    // Reset input
+    event.target.value = '';
+  }
+
+  async function analyzeItem(id) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+
+    try {
+      showToast('🤖', 'Analizando Prenda...', 'La IA está extrayendo detalles y precios.');
+      
+      const payload = {
+        base64: item.base64,
+        mime: item.mime,
+        provider: config.provider,
+        apiKey: config.apiKey
+      };
+
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Error de red');
+
+      item.status = 'done';
+      item.data = json;
+      
+      showToast('✨', '¡Prenda Auditada!', `${json.titulo} - Recomendado a ${json.pvp_marktplaats}€`);
+    } catch (err) {
+      item.status = 'error';
+      item.data = { errorMsg: err.message };
+      showToast('❌', 'Error de Análisis', err.message);
+    }
+    
+    renderCatalog();
+  }
+
+  function renderCatalog() {
+    document.getElementById('countTotal').textContent = items.length;
+    document.getElementById('countProcessed').textContent = items.filter(i => i.status === 'done').length;
+
+    const grid = document.getElementById('catalogGrid');
+    grid.innerHTML = items.map(item => {
+      
+      let overlay = '';
+      let bodyHtml = '';
+
+      if (item.status === 'loading') {
+        overlay = `<div class="status-overlay loading">Analizando IA...</div>`;
+        bodyHtml = `<div class="card-body"><p style="color:var(--text-muted); font-size:14px; text-align:center; padding: 20px 0;">El auditor IA está trabajando...</p></div>`;
+      } else if (item.status === 'error') {
+        overlay = `<div class="status-overlay error">Error</div>`;
+        bodyHtml = `<div class="card-body"><p style="color:var(--danger); font-size:13px;">${item.data?.errorMsg || 'Fallo desconocido'}</p></div>`;
+      } else {
+        const d = item.data;
+        const isKeep = d.veredicto?.toUpperCase().includes('KEEP');
+        overlay = `<div class="status-overlay done">Completado</div>`;
+        
+        let marketClass = '';
+        if(d.canal?.toLowerCase().includes('vinted')) marketClass = 'market-vinted';
+        if(d.canal?.toLowerCase().includes('marktplaats')) marketClass = 'market-marktplaats';
+
+        bodyHtml = `
+          <div class="card-body">
+            <div class="card-title">${d.titulo || 'Sin título'}</div>
+            <div class="tags">
+              <span class="tag price">${d.pvp_marktplaats}€</span>
+              <span class="tag ${marketClass}">${d.canal}</span>
+              <span class="tag">${d.talla}</span>
+              <span class="tag">${d.estado}</span>
+              <span class="tag">${d.genero}</span>
+            </div>
+            <div class="card-reason">
+              <span class="${isKeep ? 'verdict-keep' : 'verdict-trash'}">${d.veredicto}</span>: ${d.motivo}
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="card">
+          ${overlay}
+          <img src="${item.raw}" class="card-img" alt="Prenda">
+          ${bodyHtml}
+        </div>
+      `;
+    }).join('');
+  }
+
+  function generatePacks() {
+    const validItems = items.filter(i => i.status === 'done' && i.data && i.data.veredicto.toUpperCase().includes('KEEP'));
+    
+    if (validItems.length < 2) {
+      showToast('⚠️', 'Insuficientes Prendas', 'Audita al menos 2 prendas aptas (KEEP) para generar packs.');
+      return;
+    }
+
+    // Grouping logic (Nicho + Genero + Talla aproximada)
+    const packsMap = {};
+    validItems.forEach(i => {
+      const d = i.data;
+      const key = `${d.genero || 'Unisex'} - ${d.nicho || 'Casual'} (${d.talla || 'Varios'})`;
+      if(!packsMap[key]) packsMap[key] = [];
+      packsMap[key].push(i);
+    });
+
+    const container = document.getElementById('packsContainer');
+    let html = '';
+
+    Object.entries(packsMap).forEach(([groupName, groupItems]) => {
+      if (groupItems.length < 2) return; // Only make a pack if > 1 item
+
+      let sumOld = 0;
+      let itemsListHtml = '';
+
+      groupItems.forEach(itm => {
+        const p = parseFloat(itm.data.pvp_marktplaats) || parseFloat(itm.data.pvp_vinted) || 10;
+        sumOld += p;
+        itemsListHtml += `
+          <div class="pack-item">
+            <span>• ${itm.data.titulo}</span>
+            <span class="pack-item-price">${p.toFixed(2)}€</span>
+          </div>
+        `;
+      });
+
+      // Strategy: 20% discount for bundle to sell fast
+      const sumNew = (sumOld * 0.8).toFixed(2);
+
+      html += `
+        <div class="pack-card glass">
+          <div class="pack-header">
+            <div>
+              <div class="pack-title">Lote: ${groupName}</div>
+              <div class="pack-meta">${groupItems.length} prendas ideales para Vinted / Marktplaats</div>
+            </div>
+            <div class="pack-pricing">
+              <div class="pack-price-old">Suelto: ${sumOld.toFixed(2)}€</div>
+              <div class="pack-price-new">${sumNew}€</div>
+              <div style="font-size:11px; color:var(--success); font-weight:700; margin-top:4px;">-20% DTO LOTE</div>
+            </div>
+          </div>
+          <div class="pack-items">
+            ${itemsListHtml}
+          </div>
+        </div>
+      `;
+    });
+
+    if(!html) {
+      container.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text-muted);">No hay prendas compatibles para agrupar aún.</div>`;
+    } else {
+      container.innerHTML = html;
+      showToast('🪄', 'Packs Creados', 'Lotes rentables generados con éxito.');
+    }
+  }
+
+  // Toast System
+  function showToast(icon, title, desc) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <div class="toast-icon">${icon}</div>
+      <div class="toast-content">
+        <div class="toast-title">${title}</div>
+        <div class="toast-desc">${desc}</div>
+      </div>
+    `;
+    container.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Animate out
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>
