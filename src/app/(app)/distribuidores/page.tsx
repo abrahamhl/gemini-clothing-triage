@@ -5,7 +5,7 @@ import { Search, MapPin, Store, Mail } from "lucide-react";
 export default function DistribuidoresPage() {
   const [radius, setRadius] = useState("100000");
   const [loading, setLoading] = useState(false);
-  const [leads, setLeads] = useState<any[]>([]);
+  const [leads, setLeads] = useState<unknown[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   async function searchLeads() {
@@ -37,7 +37,7 @@ export default function DistribuidoresPage() {
       } else {
         setLeads(data.elements);
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       setError(e.message);
     } finally {
       setLoading(false);

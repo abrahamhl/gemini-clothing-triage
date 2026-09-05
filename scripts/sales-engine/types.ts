@@ -22,19 +22,19 @@ export interface BusinessLead {
   digitalMaturityScore: number;
   triajeFitScore: number;
   estimatedManualListingBurden: number;
-  evidence: Array<{ signal: string; source: string; observedValue: any; scoreContribution: number }>;
+  evidence: Array<{ signal: string; source: string; observedValue: unknown; scoreContribution: number }>;
 
   visitedInPerson: boolean;
   visitedAt?: string;
   visitNotes?: string;
 
-  consentStatus: 'DISCOVERED' | 'QUALIFIED' | 'AUDITED' | 'CONSENT_PENDING' | 'CONSENTED' | 'DEMO_READY' | 'DRAFT_READY' | 'SENT' | 'REPLIED' | 'WON' | 'LOST' | 'DO_NOT_CONTACT';
+  consentStatus: 'DISCOVERED' | 'QUALIFIED' | 'AUDITED' | 'CONSENT_PENDING' | 'CONSENTED' | 'EXISTING_CUSTOMER' | 'DEMO_READY' | 'DRAFT_READY' | 'SENT' | 'REPLIED' | 'WON' | 'LOST' | 'DO_NOT_CONTACT';
   consentSource?: 'IN_PERSON' | 'WEBSITE_OPT_IN' | 'EXISTING_CUSTOMER' | 'EXPLICIT_EMAIL_REQUEST';
   consentAt?: string;
   consentEvidence?: string;
 
   auditStatus: 'PENDING' | 'COMPLETED' | 'FAILED';
-  demoStatus: 'PENDING' | 'PROVISIONED' | 'USED' | 'EXPIRED';
+  demoStatus: 'PENDING' | 'PROVISIONED' | 'DEMO_READY' | 'USED' | 'EXPIRED';
   emailStatus: 'PENDING' | 'DRAFTED' | 'SENT';
 
   lastCheckedAt: string;

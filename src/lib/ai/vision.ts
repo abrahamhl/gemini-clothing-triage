@@ -12,7 +12,7 @@ const sa = {
   "token_uri": "https://oauth2.googleapis.com/token"
 };
 
-function signJwt(saPayload: any) {
+function signJwt(saPayload: unknown) {
   const header = { alg: 'RS256', typ: 'JWT' };
   const now = Math.floor(Date.now() / 1000);
   const claim = {
@@ -75,10 +75,10 @@ export class GoogleVisionProvider implements AIProvider {
     let allObjects: string[] = [];
     let allText = "";
 
-    visionData.responses.forEach((annotations: any) => {
-      allLabels.push(...(annotations.labelAnnotations || []).map((l: any) => l.description));
-      allLogos.push(...(annotations.logoAnnotations || []).map((l: any) => l.description));
-      allObjects.push(...(annotations.localizedObjectAnnotations || []).map((o: any) => o.name));
+    visionData.responses.forEach((annotations: unknown) => {
+      allLabels.push(...(annotations.labelAnnotations || []).map((l: unknown) => l.description));
+      allLogos.push(...(annotations.logoAnnotations || []).map((l: unknown) => l.description));
+      allObjects.push(...(annotations.localizedObjectAnnotations || []).map((o: unknown) => o.name));
       if (annotations.textAnnotations && annotations.textAnnotations.length > 0) {
         allText += " " + annotations.textAnnotations[0].description;
       }
@@ -93,7 +93,7 @@ export class GoogleVisionProvider implements AIProvider {
     const isVintage = allLabels.some(l => ['Vintage', 'Retro', 'Classic'].includes(l));
     
     let nombre = allObjects[0] || allLabels.find(l => !['Clothing', 'Apparel', 'Fashion', 'Sleeve', 'Pattern'].includes(l)) || "Prenda/Accesorio";
-    let marca = allLogos.length > 0 ? allLogos[0] : (allText.length > 3 ? allText.substring(0, 15).replace(/\n/g, " ").trim() : "Genérica");
+    const marca = allLogos.length > 0 ? allLogos[0] : (allText.length > 3 ? allText.substring(0, 15).replace(/\n/g, " ").trim() : "Genérica");
     
     const translateMap: Record<string, string> = {
       'Jeans': 'Vaqueros', 'Trousers': 'Pantalón', 'Shirt': 'Camisa', 'T-shirt': 'Camiseta', 

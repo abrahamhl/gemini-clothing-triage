@@ -36,7 +36,7 @@ export default function SalesAdminDashboard() {
           </thead>
           <tbody className="divide-y">
             <tr>
-              <td className="p-4 font-medium">Froufrou's</td>
+              <td className="p-4 font-medium">Froufrou&apos;s</td>
               <td className="p-4"><span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">95 (PRIORITY)</span></td>
               <td className="p-4">Manual metadata entry detected</td>
               <td className="p-4">CONSENT_PENDING</td>
