@@ -26,6 +26,7 @@ const NAV = [
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/estrategias", label: "Estrategias", icon: Target },
   { href: "/distribuidores", label: "B2B Leads", icon: Target },
+  { href: "/admin/sales", label: "Sales CRM", icon: Target },
   { href: "/integraciones", label: "Integraciones", icon: Plug },
   { href: "/configuracion", label: "Configuración", icon: Settings },
 ] as const;
