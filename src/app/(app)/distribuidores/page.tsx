@@ -15,15 +15,15 @@ export default function DistribuidoresPage() {
     try {
       const lat = 51.9851;
       const lon = 5.8987;
-      const overpassQuery = 
+      const overpassQuery = `
         [out:json];
         (
-          node["shop"="clothes"](around:\,\,\);
-          node["shop"="vintage"](around:\,\,\);
-          node["shop"="second_hand"](around:\,\,\);
+          node["shop"="clothes"](around:${radius},${lat},${lon});
+          node["shop"="vintage"](around:${radius},${lat},${lon});
+          node["shop"="second_hand"](around:${radius},${lat},${lon});
         );
         out 25;
-      ;
+      `;
       
       const res = await fetch("https://overpass-api.de/api/interpreter", {
         method: "POST",
@@ -104,13 +104,13 @@ export default function DistribuidoresPage() {
               
               <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-t border-slate-200 dark:border-slate-800 flex gap-2">
                 <button 
-                  onClick={() => window.open(\https://www.google.com/maps/search/?api=1&query=\,\\, '_blank')}
+                  onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${store.lat},${store.lon}`, '_blank')}
                   className="flex-1 flex justify-center items-center gap-1 rounded bg-slate-200 px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
                 >
                   <MapPin className="h-3 w-3"/> Mapa
                 </button>
                 <button 
-                  onClick={() => alert(\Generando email frío para \ ofreciendo el LEAN OSINT Engine...\)}
+                  onClick={() => alert(`Generando email frío para ${name} ofreciendo el LEAN OSINT Engine...`)}
                   className="flex-1 flex justify-center items-center gap-1 rounded bg-indigo-600 px-2 py-1.5 text-xs font-medium text-white hover:bg-indigo-700"
                 >
                   <Mail className="h-3 w-3"/> Pitch Demo

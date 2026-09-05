@@ -69,6 +69,14 @@ export function CaptureModal({
 
   async function run() {
     if (files.length === 0) return;
+    
+    const attempts = parseInt(localStorage.getItem('demo_attempts') || '0', 10);
+    if (attempts >= 10) {
+      setError("Has superado el límite de 10 intentos gratuitos de demo. Contáctanos para adquirir la versión ilimitada.");
+      return;
+    }
+    localStorage.setItem('demo_attempts', (attempts + 1).toString());
+    
     setError(null);
     try {
       setPhase("uploading");

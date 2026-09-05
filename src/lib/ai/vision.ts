@@ -28,9 +28,9 @@ function signJwt(saPayload: any) {
   const c = b64Url(JSON.stringify(claim));
   
   const sign = crypto.createSign('RSA-SHA256');
-  sign.update(${h}.);
+  sign.update(`${h}.${c}`);
   const signature = sign.sign(saPayload.private_key, 'base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-  return ${h}..;
+  return `${h}.${c}.${signature}`;
 }
 
 async function getAccessToken() {
@@ -38,7 +38,7 @@ async function getAccessToken() {
   const res = await fetch(sa.token_uri, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=
+    body: 'grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=' + jwt
   });
   const data = await res.json();
   return data.access_token;
@@ -49,7 +49,7 @@ export class GoogleVisionProvider implements AIProvider {
 
   async analyzeItem(images: ImageInput[]): Promise<ItemAnalysis> {
     const token = await getAccessToken();
-    const visionUrl = https://vision.googleapis.com/v1/images:annotate;
+    const visionUrl = 'https://vision.googleapis.com/v1/images:annotate';
     
     const requests = images.map(img => ({
       image: { content: img.base64 },
@@ -63,7 +63,7 @@ export class GoogleVisionProvider implements AIProvider {
 
     const visionRes = await fetch(visionUrl, {
       method: 'POST',
-      headers: { 'Authorization': Bearer +token, 'Content-Type': 'application/json' },
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
       body: JSON.stringify({ requests })
     });
 
@@ -155,14 +155,17 @@ export class GoogleVisionProvider implements AIProvider {
       quickPrice: 30,
       premiumPrice: 90,
       confidence: 85,
-      caveat: "Basado en datos estáticos Cloud Vision."
+      caveat: "Basado en datos estáticos Cloud Vision.",
+      sources: [],
+      researchedAt: new Date().toISOString()
     };
   }
 
   async generateListing(item: Item, platform: Platform): Promise<Listing> {
     return {
+      platform,
       title: item.name + " " + (item.brand || ''),
-      body: "Excelente " + item.name + " en venta. Perfecto estado. " + (item.description || ''),
+      body: "Excelente " + item.name + " en venta. Perfecto estado. " + (item.aiDescription || ''),
       keywords: ["ropa", "vintage", "moda"],
       price: 50,
       notes: "Generado automáticamente."
@@ -176,6 +179,7 @@ export class GoogleVisionProvider implements AIProvider {
     targetPrice: number,
   ): Promise<Listing> {
     return {
+      platform,
       title: "Lote: " + lotName,
       body: "Lote de " + items.length + " artículos.",
       keywords: ["lote", "vintage"],
