@@ -172,32 +172,35 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
       const isClothing = labels.some(l => ['Clothing', 'Shirt', 'Trousers', 'Jeans', 'Jacket', 'Dress', 'Footwear', 'Shoe', 'T-shirt'].includes(l));
       
       let nombre = objects[0] || labels.find(l => !['Clothing', 'Apparel', 'Fashion'].includes(l)) || "Prenda de Ropa";
-      let marca = logos.length > 0 ? logos[0] : "Sin marca visible";
+      let marca = logos.length > 0 ? logos[0] : "Sin marca";
       
-      // Traducción básica al español
       const translateMap = {
-        'Jeans': 'Pantalones Vaqueros', 'Trousers': 'Pantalones', 'Shirt': 'Camisa', 'T-shirt': 'Camiseta', 
+        'Jeans': 'Vaqueros', 'Trousers': 'Pantalón', 'Shirt': 'Camisa', 'T-shirt': 'Camiseta', 
         'Jacket': 'Chaqueta', 'Dress': 'Vestido', 'Shoe': 'Zapato', 'Footwear': 'Calzado', 'Coat': 'Abrigo',
-        'Sweater': 'Suéter / Jersey', 'Shorts': 'Pantalones Cortos', 'Skirt': 'Falda', 'Hat': 'Sombrero',
-        'Outerwear': 'Ropa de abrigo', 'Top': 'Prenda superior', 'Suit': 'Traje'
+        'Sweater': 'Jersey', 'Shorts': 'Pantalones Cortos', 'Skirt': 'Falda', 'Hat': 'Sombrero',
+        'Outerwear': 'Abrigo', 'Top': 'Top', 'Suit': 'Traje'
       };
       if (translateMap[nombre]) nombre = translateMap[nombre];
 
       let basePrice = 15;
-      if (['Chaqueta', 'Abrigo', 'Suit'].includes(nombre)) basePrice = 45;
+      if (['Chaqueta', 'Abrigo', 'Traje'].includes(nombre)) basePrice = 45;
       if (['Zapato', 'Calzado'].includes(nombre)) basePrice = 30;
-      if (marca !== "Sin marca visible") basePrice *= 1.8; // Marcas valen más
+      if (marca !== "Sin marca") basePrice *= 1.8; 
 
       const precio = (basePrice + (Math.random() * 10 - 5)).toFixed(2);
       
+      const isKeep = parseFloat(precio) > 10 && isClothing;
+
       const appraisal = {
-        nombre: nombre,
-        marca: marca,
-        estado: "Analizado visualmente (Bueno)",
-        defectos: "Análisis de superficie sin defectos graves detectados",
-        precio_estimado: precio,
-        canal_venta: precio > 30 ? "Vinted Premium / Tienda Física" : "Marktplaats / Venta rápida",
-        explicacion: `Análisis real por IA (Google Cloud Vision): Detectado como '${labels.slice(0,3).join(", ")}'. ${!isClothing ? 'Nota: Podría no ser ropa.' : ''} La marca ${marca} y el tipo de prenda sugieren este valor en el mercado holandés.`
+        titulo: `${nombre} ${marca !== 'Sin marca' ? marca : 'Vintage'}`,
+        nicho: marca !== 'Sin marca' ? 'Marcas Premium' : 'Vintage Casual',
+        genero: labels.includes('Menswear') ? 'Hombre' : labels.includes('Womenswear') ? 'Mujer' : 'Unisex',
+        talla: 'S/M/L', 
+        estado: 'Usado - Buen estado',
+        pvp_marktplaats: precio,
+        canal: parseFloat(precio) > 30 ? "Vinted" : "Marktplaats",
+        veredicto: isKeep ? "KEEP" : "TRASH",
+        motivo: `Análisis real Cloud Vision: Detectado como '${labels.slice(0,2).join(", ")}'. ${!isClothing ? 'No parece ropa útil.' : 'Valor comercial viable en Holanda.'}`
       };
 
       textResponse = JSON.stringify(appraisal);
