@@ -29,7 +29,7 @@ export class SupabaseStore implements ItemRepository {
 
   private async fetchStorage(path: string, options: RequestInit = {}) {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("database_not_configured");
-    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${path}`, {
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/items/${path}`, {
       ...options,
       headers: {
         "Authorization": `Bearer ${SUPABASE_ANON_KEY || ""}`,
@@ -161,7 +161,37 @@ export class SupabaseStore implements ItemRepository {
   }
 
   async getImage(imageId: string): Promise<StoredImage | null> {
-    throw new Error("getImage not implemented for Supabase (use public URL directly)");
+    const resItems = await this.fetchDb("items?select=id,images");
+    const items = await resItems.json();
+    let foundImg: any = null;
+    let itemId = "";
+    for (const item of items) {
+      foundImg = item.images.find((img: any) => img.id === imageId);
+      if (foundImg) {
+        itemId = item.id;
+        break;
+      }
+    }
+    if (!foundImg || !foundImg.storagePath) return null;
+
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/items/${foundImg.storagePath}`, {
+      headers: { "Authorization": `Bearer ${SUPABASE_ANON_KEY || ""}` }
+    });
+    if (!res.ok) return null;
+    const arrayBuffer = await res.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const mimeType = res.headers.get("content-type") || "image/jpeg";
+    const dataUrl = `data:${mimeType};base64,${buffer.toString("base64")}`;
+
+    return {
+      id: foundImg.id,
+      itemId,
+      dataUrl,
+      isPrimary: foundImg.isPrimary,
+      ordinal: foundImg.ordinal,
+      uploadedFrom: foundImg.uploadedFrom,
+      kind: foundImg.kind || "original"
+    };
   }
 
   async getItemImages(itemId: string): Promise<ImageInput[]> {
@@ -173,7 +203,9 @@ export class SupabaseStore implements ItemRepository {
 
     for (const img of originalImages) {
       if (!(img as any).storagePath) continue;
-      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/public/images/${(img as any).storagePath}`);
+      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/items/${(img as any).storagePath}`, {
+        headers: { "Authorization": `Bearer ${SUPABASE_ANON_KEY || ""}` }
+      });
       if (res.ok) {
         const arrayBuffer = await res.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
