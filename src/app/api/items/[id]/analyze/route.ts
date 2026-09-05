@@ -50,7 +50,11 @@ export async function POST(
     const updated = await saveAnalysis(id, analysis, provider.name);
     return NextResponse.json({ item: updated });
   } catch (e) {
-    console.error("[analyze] proveedor principal no disponible:", e instanceof Error ? e.message : e);
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[analyze] error:", msg);
+    if (msg.includes("not_configured") || msg.includes("service_account")) {
+      return NextResponse.json({ error: "provider_configuration_missing", details: msg }, { status: 503 });
+    }
   }
 
   if (provider.name !== "ollama-gpu") {

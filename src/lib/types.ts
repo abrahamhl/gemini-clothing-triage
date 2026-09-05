@@ -43,6 +43,7 @@ export interface ItemImage {
   uploadedFrom: UploadSource;
   kind?: ImageKind;
   generatedBy?: string;
+  storagePath?: string;
 }
 
 export interface Prices {
