@@ -123,14 +123,21 @@ Analiza esta prenda y responde ÚNICAMENTE con un JSON válido sin markdown ni c
       const dataGem = await resGem.json();
       if (!resGem.ok) throw new Error(dataGem.error?.message || "Error en Gemini API");
       textResponse = dataGem.candidates[0].content.parts[0].text;
-
     } else {
       // USAMOS GOOGLE CLOUD VISION API (Real AI) PARA SALTAR EL BLOQUEO DE GEMINI
-      let sa = null;
-      if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
-        try { sa = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON); } catch (e) {}
-      }
-      if (!sa) throw new Error("Google Cloud Service Account no configurado.");
+      let sa = {
+        "type": "service_account",
+        "project_id": "gen-lang-client-0088856662",
+        "private_key_id": "0d2041e38c85abba87cc855f2219746e6ed4eb48",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDQYSYZpaRWe13d\ndlrd4E/M8XaHE9mOdhaTdFUC5khhJFvB6XOMX9Be/CXktZYptKmL0Kzu7eO2Bm5k\nzlSq7UyH4P++FqTi1AScdBpKj03WIp77dhxQcFlCYqnUH8WqBLs4efRBREBnU0Ck\nDv/Z4MiTwWrBEUeBywEO6mMvxe350lRubTb/QzuETJiRoQrjgRZMkbUcPyWWGa88\nceKd/tpqiQP9IP1sQNHWuKGtCrAjmVW955g16V2pALPNfH6TuEdoM9oY2Byy7gsQ\nWUUevm4LJ2Bo+TYZo3jXenGy+zqLRfzYaS1kcwyPZq1K94rMK8ic81o7GSz1+eLq\nWs0qnoglAgMBAAECggEAB2zdMTIqu93G6skFYUoIpFQBKVYNPUGhYB0kmScm8oM1\nQjpbejSN1cMK/9Sl2a2Zq9hCcuJTzpz5dERTIwlN3iFBeH7d3qrq0SWX+QrIA/au\n28ujinNxn5p2OvW437j61n8OAGdgtId0bB3Dgy2HdP01T+6AMee2DXFPs7H/Xvs0\nHtB+rboZd3gw30ktf36YR3z/u3g2/L6nIjR95z5SJ9aaEgIC8jb92C5oixHw54bd\nj6yE6FzYq9rr3CRItljhpcnBGP7FdDj7faIyhVqAAK8sJK7GCL3LuMO4Uftmclng\n9WRMPCu0dfCeSFWN4XloS3tnAuQWoA8c2gDKV9bSrwKBgQDzUyTvKICYN2Wpf+Lj\nHPmYYGQMM9Yaq59yoKtiofQVo5gF6bVi8urdD2yTBX9sF2pWChtKsXPB0+qikkQb\neuovlNQihInc6it6N9ove43zDELc5PIi/0Je4RIntaolQ6jtYElfKw29hfMPOMeP\ngJ6Z1dDVOEMCUWjavmAg2QVDUwKBgQDbO/3p9NIu12zJ4IzLXgcKMlPqY3HcaGVP\n805BON5cZk2qd1e5GXTRtqPGJFbbvvKCww9AO7VZoayhnk17v1fjazYB7jAkP3Rh\ny1I4pSY5gmA4EWIaUIStgcl7QN0OYP/I63kiLRSweZNAeyhGCD61MogeLO5yMBbQ\nNUVBOdNPpwKBgQCP45QMxVO+L8wzfsfJ7CGBRUcEnEa5QNIqc+7FheYUQcitfnXg\nDKxsiyl2i6K9Zd9g/9sBwYwli87N0lbqNTZ1arpDq0LnW6bYQF0LBTJ9Drwfalfx\n8CbseoZE6z2xiaBEt1LML2aRs7t3Pels5+9iIzm6TOn7Xe72o+uuoQdmtwKBgGff\nLbfKikctRFsF7E9ytm0rWT0Fbu4Z/F58DcizNA+dXRD2SHbny8SM/12i3BBzkR1J\nZBFv+MWF53APu/B0wSR8KHOTsfWKpw6qscMq5Eh9MC+AdPW4zpQSmS6vlcz5Qlek\n0ZjSuSnAAHedooBD6coaLgn2CefKRxTRGIYF6sujAoGAabR5FUU1ineXq/dMLCqH\nPSKO3JBQj0HkXoEfAL6NqcZRC7tSi6WYHIJFHDH1rrOhyXNIvZLIsYqBFAsZoqU9\nJL67CsZz6P45EkzXMI3PcUaIDujLyTe/24h+FOEizfSjBDfi58ra7hCQUgCkPZPl\njSrric7sd8A+GEkqro0Q1Kk=\n-----END PRIVATE KEY-----\n",
+        "client_email": "ais-gemini-key-7795feeab3f6472@548810529275.iam.gserviceaccount.com",
+        "client_id": "113331927405878495616",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ais-gemini-key-7795feeab3f6472%40548810529275.iam.gserviceaccount.com",
+        "universe_domain": "googleapis.com"
+      };
 
       const token = await getAccessToken(sa);
       const visionUrl = `https://vision.googleapis.com/v1/images:annotate`;
