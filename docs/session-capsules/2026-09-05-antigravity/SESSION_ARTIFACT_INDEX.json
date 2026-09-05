@@ -1,0 +1,65 @@
+[
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/SESSION_SUMMARY.md",
+    "artifact_type": "documentation",
+    "purpose": "High-level overview of the session objectives, outcomes, and blockers.",
+    "created_or_modified": "created",
+    "recruiter_value": 3,
+    "technical_value": 7,
+    "needs_review": false
+  },
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/DECISIONS.md",
+    "artifact_type": "architecture_log",
+    "purpose": "Append-only log of critical engineering and product decisions.",
+    "created_or_modified": "created",
+    "recruiter_value": 8,
+    "technical_value": 9,
+    "needs_review": false
+  },
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/AI_WORKFLOW.md",
+    "artifact_type": "process_documentation",
+    "purpose": "Details the AI agents and models utilized during the session.",
+    "created_or_modified": "created",
+    "recruiter_value": 5,
+    "technical_value": 5,
+    "needs_review": false
+  },
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/SKILLS_AND_WORKFLOWS.md",
+    "artifact_type": "knowledge_extraction",
+    "purpose": "Reusable patterns, skills, and prompts discovered during execution.",
+    "created_or_modified": "created",
+    "recruiter_value": 6,
+    "technical_value": 10,
+    "needs_review": false
+  },
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/EVIDENCE_LEDGER.json",
+    "artifact_type": "metadata",
+    "purpose": "Machine-readable verification of CV claims against codebase reality.",
+    "created_or_modified": "created",
+    "recruiter_value": 9,
+    "technical_value": 4,
+    "needs_review": false
+  },
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/RECRUITER_EVIDENCE.md",
+    "artifact_type": "career_artifact",
+    "purpose": "Defensible, strictly verified claims for job applications and interviews.",
+    "created_or_modified": "created",
+    "recruiter_value": 10,
+    "technical_value": 2,
+    "needs_review": false
+  },
+  {
+    "path": "docs/session-capsules/2026-09-05-antigravity/HANDOFF.md",
+    "artifact_type": "agent_handoff",
+    "purpose": "Context resumption guide for the next AI agent or human developer.",
+    "created_or_modified": "created",
+    "recruiter_value": 2,
+    "technical_value": 10,
+    "needs_review": false
+  }
+]
