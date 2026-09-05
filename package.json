@@ -11,7 +11,8 @@
     "sales:run": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js run",
     "sales:status": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js status",
     "sales:export": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js export",
-    "sales:mail": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js mail"
+    "sales:mail": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js mail",
+    "sales:reconcile": "tsc scripts/sales-engine/cli.ts --outDir scripts/sales-engine/dist && node scripts/sales-engine/dist/cli.js reconcile"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",

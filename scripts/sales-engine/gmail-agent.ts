@@ -18,6 +18,12 @@ export async function runGmailAgent(dryRun = true): Promise<void> {
 
     processed++;
 
+    if (lead.consentStatus === 'SUPPRESSED' || lead.suppressionReason) {
+      console.log('Skipping ' + lead.businessName + ': Suppressed (' + lead.suppressionReason + ')');
+      skipped++;
+      continue;
+    }
+
     const isSendEnabled = process.env.OUTREACH_SEND_ENABLED === 'true';
     const isEligible = lead.consentStatus === 'CONSENTED' || lead.consentStatus === 'EXISTING_CUSTOMER';
     const hasDemo = lead.demoStatus === 'PROVISIONED' || lead.demoStatus === 'DEMO_READY';

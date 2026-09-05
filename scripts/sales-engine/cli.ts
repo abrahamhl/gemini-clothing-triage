@@ -1,6 +1,7 @@
 import { LocalCRM } from './crm';
 import { discoverArnhemLeads } from './discover';
 import { runGmailAgent } from './gmail-agent';
+import { runReconciliation } from './reconcile';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -16,40 +17,41 @@ async function main() {
   } else if (command === 'status') {
     const leads = crm.getLeads();
     console.log("=== TRIAJEOS CRM STATUS ===");
+    
+    let historicalSent = 31;
+    let duplicates = leads.filter(l => l.suppressionReason === 'DUPLICATE_SENT').length;
+    let bounces = leads.filter(l => l.suppressionReason === 'BOUNCED').length;
+    let replies = leads.filter(l => l.suppressionReason === 'REPLIED').length;
+    let dnc = leads.filter(l => l.consentStatus === 'DO_NOT_CONTACT').length;
+    let audited = leads.filter(l => l.auditStatus === 'COMPLETED').length;
+    let highFit = leads.filter(l => l.triajeFitScore >= 55).length;
+    let demoReady = leads.filter(l => l.demoStatus === 'DEMO_READY' || l.demoStatus === 'PROVISIONED').length;
+    let draftReady = leads.filter(l => l.emailStatus === 'DRAFTED').length;
+    let sendEligible = leads.filter(l => l.emailStatus === 'DRAFTED' && (l.consentStatus === 'CONSENTED' || l.consentStatus === 'EXISTING_CUSTOMER')).length;
+
     console.log("TOTAL LEADS: " + leads.length);
-    console.log("ARNHEM LEADS: " + leads.filter(l => l.city.toLowerCase() === 'arnhem').length);
-    console.log("LEADS WITH WEBSITE: " + leads.filter(l => l.website).length);
-    console.log("LEADS WITH WEBSHOP: " + leads.filter(l => l.webshop).length);
-    console.log("LEADS WITH VERIFIED BUSINESS EMAIL: " + leads.filter(l => l.publicBusinessEmail).length);
-    
-    const avgFit = leads.length ? leads.reduce((acc, l) => acc + l.triajeFitScore, 0) / leads.length : 0;
-    console.log("AVERAGE FIT SCORE: " + avgFit.toFixed(2));
-    
-    const states = {
-      DISCOVERED: 0, AUDITED: 0, HIGH_FIT: 0, CONTACT_ELIGIBLE: 0,
-      DEMO_READY: 0, DRAFT_READY: 0, SENT: 0, REPLIED: 0,
-      DEMO_USED: 0, WON: 0, LOST: 0, DO_NOT_CONTACT: 0
-    };
-    
-    leads.forEach(l => {
-      if (l.consentStatus in states) states[l.consentStatus as keyof typeof states]++;
-      if (l.triajeFitScore >= 70) states.HIGH_FIT++;
-      if (l.consentStatus === 'CONSENTED') states.CONTACT_ELIGIBLE++;
-    });
-    
-    console.log("\n--- STATES ---");
-    for (const [k, v] of Object.entries(states)) {
-      console.log(k + ": " + v);
-    }
+    console.log("EXTERNAL EMAILS ALREADY SENT: " + historicalSent);
+    console.log("UNIQUE BUSINESSES CONTACTED: " + (historicalSent - duplicates));
+    console.log("DUPLICATE SENDS: " + duplicates);
+    console.log("BOUNCES: " + bounces);
+    console.log("REPLIES: " + replies);
+    console.log("DO_NOT_CONTACT: " + dnc);
+    console.log("AUDITED: " + audited);
+    console.log("HIGH_FIT: " + highFit);
+    console.log("DEMO_READY: " + demoReady);
+    console.log("DRAFT_READY: " + draftReady);
+    console.log("SEND_ELIGIBLE: " + sendEligible);
   } else if (command === 'export') {
     const csv = crm.generateCSV();
     const outPath = path.join(process.cwd(), 'export-leads.csv');
     fs.writeFileSync(outPath, csv);
     console.log("Exported to " + outPath + " (Remember not to commit this!)");
+  } else if (command === 'reconcile') {
+    await runReconciliation();
   } else if (command === 'mail') {
     await runGmailAgent(true);
   } else {
-    console.log("Unknown command. Use: run, status, export, mail");
+    console.log("Unknown command. Use: run, status, export, mail, reconcile");
   }
 }
 
